@@ -18,9 +18,13 @@ public class Car {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
     private CarModel carModel;
+    @ManyToOne
     private FuelType fuelType;
+    @ManyToOne
     private Transmission transmission;
+    @ManyToOne
     private CarClass carClass;
     private Double pricePerDay;
     private Double pricePerKm;
@@ -29,11 +33,12 @@ public class Car {
     private Double kmage;
     private boolean waiver;
     private Integer availableChildSeats;
-    @ElementCollection(targetClass=Long.class)
+    @OneToMany
     private Set<CarRating> carRatings;
+    @ManyToOne
     private User owner;
     //private List<Image> images;
-    @ElementCollection(targetClass=Long.class)
+    @OneToMany
     private Set<Promotion> promotions;
 
     public Car() { }

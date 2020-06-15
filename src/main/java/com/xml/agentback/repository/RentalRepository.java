@@ -25,6 +25,6 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
     @Query("DELETE FROM Rental r where r.id in ?1")
     void deleteRentalsWithIds(List<Long> ids);
 
-    Rental deleteById(List<Long> id);
+    void deleteById(Long id);
 
 }
