@@ -33,6 +33,7 @@ public class Car {
     @ElementCollection(targetClass=Long.class)
     private Set<Promotion> promotions;
 
+
     public Car(CarModel carModel, FuelType fuelType, Transmission transmission, CarClass carClass, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings, User owner, Set<Promotion> promotions) {
         this.carModel = carModel;
         this.fuelType = fuelType;

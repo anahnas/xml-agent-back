@@ -1,12 +1,17 @@
 package com.xml.agentback.service.impl;
 
 import com.xml.agentback.model.Car;
+import com.xml.agentback.model.CarCalendar;
+import com.xml.agentback.model.Rental;
+import com.xml.agentback.repository.CarCalendarRepository;
 import com.xml.agentback.repository.CarRepository;
+import com.xml.agentback.repository.RentalRepository;
 import com.xml.agentback.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,6 +19,12 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private RentalRepository rentalRepository;
+
+    @Autowired
+    private CarCalendarRepository carCalendarRepository;
 
     @Override
     public Car addCar(Car car) {
@@ -32,7 +43,7 @@ public class CarServiceImpl implements CarService {
         else
             return null;
     }
-
+    /*
     @Override
     public Car editCar(Car carDTO) {
             Car car = this.carRepository.getOne(carDTO.getId());
@@ -54,7 +65,7 @@ public class CarServiceImpl implements CarService {
 
             return this.carRepository.save(car);
         }
-
+    */
     @Override
     public boolean removeCar(Long id) {
         try{
@@ -67,13 +78,45 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> searchCars(Car car) {
+    public Rental blockCar(Rental rental) {
+
         try {
-            return this.carRepository.findByCarModelIdAndAndCarClassIdAndAndFuelTypeIdAndAndTransmissionId(car.getCarModelId(), car.getCarClassId(), car.getFuelTypeId(), car.getTransmissionId());
-        } catch (Exception e){
+
+            CarCalendar carCal = carCalendarRepository.getOne(rental.getCarCalendarId());
+
+            List<Rental> rentals = this.rentalRepository.findAllById(carCal.getId());
+            ArrayList<Long> deleteListId = new ArrayList();
+
+            for (Rental r : rentals) {
+                if ((r.getStartDate().after(rental.getStartDate()) || r.getStartDate().equals(rental.getStartDate())) && (r.getEndDate().before(rental.getEndDate()) || r.getEndDate().equals(rental.getEndDate()))) {
+                    // Moze da se zakazati (unutar termina).
+                    deleteListId.add(r.getId());
+                    continue;
+                } else if ((r.getStartDate().before(rental.getStartDate())) && (r.getEndDate().before(rental.getEndDate()) && r.getEndDate().after(rental.getStartDate()))) {
+                    // Ne valja - ne moze se zakazati (gornja granica je unutar termina), automobil vec izdat.
+                    return null;
+                } else if ((r.getStartDate().before(rental.getEndDate()) && r.getStartDate().after(rental.getStartDate()) && r.getEndDate().after(rental.getEndDate()))) {
+                    // Ne valja - ne moze se zakazati (donja granica je unutar termina).
+                    return null;
+                }
+            }
+
+            // Brisanje liste rentala
+            this.rentalRepository.deleteRentalsWithIds(deleteListId);
+
+            // Cuvanje novog rentala i njegovo dodavanje
+            Rental rent = this.rentalRepository.save(rental);
+            carCal.getRentalIds().add(rent.getId());
+
+            this.carCalendarRepository.save(carCal);
+
+            return rent;
+
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
 
