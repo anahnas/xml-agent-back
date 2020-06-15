@@ -1,6 +1,7 @@
 package com.xml.agentback.service;
 
 import com.xml.agentback.model.Car;
+import com.xml.agentback.model.Rental;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ public interface CarService {
 
     boolean deleteById(Long id);
 
-    List<Car> searchCars(Car car);
+    Rental blockCar(Rental rental);
 
 }

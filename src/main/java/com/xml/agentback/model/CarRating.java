@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 public class CarRating {
+
     private Long id;
 
     private Double rating;
