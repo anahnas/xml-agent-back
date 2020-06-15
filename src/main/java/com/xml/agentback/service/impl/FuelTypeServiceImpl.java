@@ -16,20 +16,26 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     @Autowired
     private FuelTypeRepository fuelTypeRepository;
 
-
     @Override
     public List<FuelType> getAll() {
         return this.fuelTypeRepository.findAll();
     }
 
     @Override
-    public Optional<FuelType> getFueltType(Long id) {
+    public Optional<FuelType> getOne(Long id) {
         return this.fuelTypeRepository.findById(id);
 
     }
 
     @Override
-    public FuelType addFuelType(FuelType fuelType) {
+    public FuelType addOne(FuelType fuelType) {
+        return this.fuelTypeRepository.save(fuelType);
+    }
+
+    @Override
+    public FuelType update(FuelType fuelType) {
+        FuelType toUpdate = this.fuelTypeRepository.getOne(fuelType.getId());
+        toUpdate.setType(fuelType.getType());
         return this.fuelTypeRepository.save(fuelType);
     }
 

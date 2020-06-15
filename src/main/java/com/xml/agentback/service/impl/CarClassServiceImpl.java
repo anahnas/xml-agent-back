@@ -22,13 +22,20 @@ public class CarClassServiceImpl implements CarClassService {
     }
 
     @Override
-    public Optional<CarClass> getOneCarClass(Long id) {
+    public Optional<CarClass> getOne(Long id) {
         return this.carClassRepository.findById(id);
     }
 
     @Override
     public CarClass addOne(CarClass carClass) {
         return this.carClassRepository.save(carClass);
+    }
+
+    @Override
+    public CarClass update(CarClass carClass) {
+        CarClass toUpdate = this.carClassRepository.getOne(carClass.getId());
+        toUpdate.setCarClass(carClass.getCarClass());
+        return this.carClassRepository.save(toUpdate);
     }
 
     @Override

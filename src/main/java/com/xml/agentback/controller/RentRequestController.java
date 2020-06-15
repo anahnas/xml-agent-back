@@ -7,23 +7,21 @@ import com.xml.agentback.service.RentRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("rent")
 public class RentRequestController {
 
     @Autowired
     private RentRequestService rentService;
 
     @Autowired
-    private CarService carService; // preko ovog servisa isto pravimo oglas
+    private CarService carService;
 
-    @GetMapping(value = "/rent/getAll")
+    @GetMapping
     public ResponseEntity<List<RentRequest>> getAll() {
 
         try {
@@ -37,7 +35,7 @@ public class RentRequestController {
 
     }
 
-    @GetMapping(value = "/rent/getPaid")
+    @GetMapping(value = "/paid")
     public ResponseEntity<List<RentRequest>> getPaid() {
 
         try {
@@ -51,7 +49,7 @@ public class RentRequestController {
 
     }
 
-    @GetMapping(value = "/rent/getPending")
+    @GetMapping(value = "/pending")
     public ResponseEntity<List<RentRequest>> getPending() {
 
         try {
@@ -66,7 +64,7 @@ public class RentRequestController {
     }
 
 
-    @GetMapping(value = "/rent/getCancellable")
+    @GetMapping(value = "/cancellable")
     public ResponseEntity<List<RentRequest>> getCancellable() {
 
         try {
@@ -80,7 +78,7 @@ public class RentRequestController {
 
     }
 
-    @PostMapping(value = "/rent/create")
+    @PostMapping
     public ResponseEntity<?> createRentRequest(@RequestBody RentRequest rentRequest) {
         try {
             this.rentService.createRentReq(rentRequest);
@@ -90,8 +88,5 @@ public class RentRequestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
 
 }

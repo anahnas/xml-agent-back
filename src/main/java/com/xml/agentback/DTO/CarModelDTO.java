@@ -2,6 +2,7 @@ package com.xml.agentback.DTO;
 
 import com.xml.agentback.model.CarBrand;
 import com.xml.agentback.model.CarClass;
+import com.xml.agentback.model.CarModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CarModelDTO {
+    private Long id;
     private String name;
     private CarBrandDTO carBrandDTO;
     private CarClassDTO carClassDTO;
@@ -19,5 +21,10 @@ public class CarModelDTO {
         this.name = name;
         this.carBrandDTO = carBrandDTO;
         this.carClassDTO = carClassDTO;
+    }
+
+    public CarModelDTO(CarModel carModel) {
+        this.id = carModel.getId();
+        this.name = carModel.getName();
     }
 }

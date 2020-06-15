@@ -27,7 +27,7 @@ public class CarServiceImpl implements CarService {
     private CarCalendarRepository carCalendarRepository;
 
     @Override
-    public Car addCar(Car car) {
+    public Car addOne(Car car) {
         return this.carRepository.save(car);
     }
 
@@ -37,37 +37,37 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getCar(Long id) {
+    public Car getOne(Long id) {
         if(this.carRepository.findById(id).isPresent())
             return this.carRepository.findById(id).get();
         else
             return null;
     }
-    /*
+    
     @Override
-    public Car editCar(Car carDTO) {
-            Car car = this.carRepository.getOne(carDTO.getId());
+    public Car update(Car car) {
+        Car toUpdate = this.carRepository.getOne(car.getId());
 
-            car.setCarModelId(car.getCarModelId());
-            car.setFuelTypeId(carDTO.getFuelTypeId());
-            car.setTransmissionId(carDTO.getTransmissionId());
-            car.setCarClassId(carDTO.getCarClassId());
-            car.setPricePerDay(carDTO.getPricePerDay());
-            car.setPricePerKm(carDTO.getPricePerKm());
-            car.setLimitedKms(carDTO.isLimitedKms());
-            car.setLimitKmsPerDay(carDTO.getLimitKmsPerDay());
-            car.setKmage(carDTO.getKmage());
-            car.setWaiver(carDTO.isWaiver());
-            car.setAvailableChildSeats(carDTO.getAvailableChildSeats());
-            car.setOwnerId(carDTO.getOwnerId());
-            car.setCarRatingIds(carDTO.getCarRatingIds());
-            car.setPromotionIds(carDTO.getPromotionIds());
+        toUpdate.setCarModel(car.getCarModel());
+        car.setFuelType(car.getFuelType());
+        car.setTransmission(car.getTransmission());
+        car.setCarClass(car.getCarClass());
+        car.setPricePerDay(car.getPricePerDay());
+        car.setPricePerKm(car.getPricePerKm());
+        car.setLimitedKms(car.isLimitedKms());
+        car.setLimitKmsPerDay(car.getLimitKmsPerDay());
+        car.setKmage(car.getKmage());
+        car.setWaiver(car.isWaiver());
+        car.setAvailableChildSeats(car.getAvailableChildSeats());
+        car.setOwner(car.getOwner());
+        car.setCarRatings(car.getCarRatings());
+        car.setPromotions(car.getPromotions());
 
-            return this.carRepository.save(car);
-        }
-    */
+        return this.carRepository.save(car);
+    }
+    
     @Override
-    public boolean removeCar(Long id) {
+    public boolean deleteById(Long id) {
         try{
             this.carRepository.deleteById(id);
             return true;
@@ -112,7 +112,8 @@ public class CarServiceImpl implements CarService {
 
             return rent;
 
-        } catch (Exception e) {
+        } catch (Exception e){
+
             e.printStackTrace();
             return null;
         }

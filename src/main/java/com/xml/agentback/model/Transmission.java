@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.xml.agentback.DTO.TransmissionDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,11 @@ public class Transmission {
 
     public Transmission(String type) {
         this.type = type;
+    }
+
+    public Transmission(TransmissionDTO transmissionDTO) {
+        if(transmissionDTO.getId() != null)
+            this.id = transmissionDTO.getId();
+        this.type = transmissionDTO.getType();
     }
 }

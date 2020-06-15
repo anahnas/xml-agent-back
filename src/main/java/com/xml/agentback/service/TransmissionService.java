@@ -9,9 +9,11 @@ public interface TransmissionService {
 
     List<Transmission> getAll();
 
-    Optional<Transmission> getTransmission(Long id);
+    Optional<Transmission> getOne(Long id);
 
-    Transmission addTransmission(Transmission transmission);
+    Transmission addOne(Transmission transmission);
+
+    Transmission update(Transmission transmission);
 
     void deleteById(Long id);
 

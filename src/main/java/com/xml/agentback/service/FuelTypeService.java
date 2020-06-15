@@ -9,11 +9,11 @@ public interface FuelTypeService {
 
     List<FuelType> getAll();
 
-    Optional<FuelType> getFueltType(Long id);
+    Optional<FuelType> getOne(Long id);
 
-    FuelType addFuelType(FuelType fuelType);
+    FuelType addOne(FuelType fuelType);
 
     void deleteById(Long id);
 
-
+    FuelType update(FuelType fuelType);
 }

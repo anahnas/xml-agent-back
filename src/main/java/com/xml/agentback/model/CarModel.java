@@ -1,6 +1,8 @@
 package com.xml.agentback.model;
 
 
+import com.xml.agentback.DTO.CarBrandDTO;
+import com.xml.agentback.DTO.CarModelDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +18,6 @@ public class CarModel {
     @Column
     private String name;
     @ManyToOne
-    @JoinColumn(name = "car_brand_id")
     private CarBrand carBrand;
     @ManyToOne
     private CarClass carClass;
@@ -28,5 +29,13 @@ public class CarModel {
         this.name = name;
         this.carBrand = carBrand;
         this.carClass = carClass;
+    }
+
+    public CarModel(CarModelDTO carModelDTO) {
+        if(carModelDTO.getId() != null)
+            this.id = carModelDTO.getId();
+        this.name = carModelDTO.getName();
+        this.carBrand = new CarBrand(carModelDTO.getCarBrandDTO());
+        this.carClass = new CarClass(carModelDTO.getCarClassDTO());
     }
 }

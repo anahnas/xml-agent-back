@@ -22,12 +22,21 @@ public class CarModelServiceImpl implements CarModelService {
     }
 
     @Override
-    public Optional<CarModel> getOneCarModel(Long id) {
+    public Optional<CarModel> getOne(Long id) {
         return this.carModelRepository.findById(id);
     }
 
     @Override
     public CarModel addOne(CarModel carModel) {
+        return this.carModelRepository.save(carModel);
+    }
+
+    @Override
+    public CarModel update(CarModel carModel) {
+        CarModel toUpdate = this.carModelRepository.getOne(carModel.getId());
+        toUpdate.setCarBrand(carModel.getCarBrand());
+        toUpdate.setCarClass(carModel.getCarClass());
+        toUpdate.setName(carModel.getName());
         return this.carModelRepository.save(carModel);
     }
 
