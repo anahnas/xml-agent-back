@@ -21,7 +21,7 @@ public class CarBrandServiceImpl implements CarBrandService {
     }
 
     @Override
-    public Optional<CarBrand> getOneCarBrand(Long id) {
+    public Optional<CarBrand> getOne(Long id) {
         return this.carBrandRepository.findById(id);
     }
 
@@ -31,9 +31,15 @@ public class CarBrandServiceImpl implements CarBrandService {
     }
 
     @Override
+    public CarBrand update(CarBrand carBrand) {
+        CarBrand toUpdate = this.carBrandRepository.getOne(carBrand.getId());
+        toUpdate.setName(carBrand.getName());
+        toUpdate.setCarModels(carBrand.getCarModels());
+        return this.carBrandRepository.save(toUpdate);
+    }
+
+    @Override
     public void deleteById(Long id) {
         this.carBrandRepository.deleteById(id);
-
-
     }
 }

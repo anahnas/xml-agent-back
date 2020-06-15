@@ -9,9 +9,11 @@ public interface CarModelService {
 
     List<CarModel> getAll();
 
-    Optional<CarModel> getOneCarModel(Long id);
+    Optional<CarModel> getOne(Long id);
 
     CarModel addOne(CarModel carModel);
+
+    CarModel update(CarModel carModel);
 
     void deleteById(Long id);
 

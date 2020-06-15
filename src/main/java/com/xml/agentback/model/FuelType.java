@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.xml.agentback.DTO.FuelTypeDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +23,10 @@ public class FuelType {
         this.type = type;
     }
 
+    public FuelType(FuelTypeDTO fuelTypeDTO) {
+        if(fuelTypeDTO.getId() != null)
+            this.id = fuelTypeDTO.getId();
+        this.type = fuelTypeDTO.getType();
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.xml.agentback.DTO.CarBrandDTO;
 import lombok.Getter;
 import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,5 +28,10 @@ public class CarBrand {
 
     public CarBrand(String name) {
         this.name = name;
+    }
+
+    public CarBrand(CarBrandDTO carBrandDTO) {
+        this.id = carBrandDTO.getId();
+        this.name = carBrandDTO.getName();
     }
 }

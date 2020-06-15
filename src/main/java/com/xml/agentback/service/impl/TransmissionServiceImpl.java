@@ -21,13 +21,20 @@ public class TransmissionServiceImpl implements TransmissionService {
     }
 
     @Override
-    public Optional<Transmission> getTransmission(Long id) {
+    public Optional<Transmission> getOne(Long id) {
         return this.transmissionRepository.findById(id);
     }
 
     @Override
-    public Transmission addTransmission(Transmission transmission) {
+    public Transmission addOne(Transmission transmission) {
         return this.transmissionRepository.save(transmission);
+    }
+
+    @Override
+    public Transmission update(Transmission transmission){
+        Transmission toUpdate = this.transmissionRepository.getOne(transmission.getId());
+        toUpdate.setType(transmission.getType());
+        return this.transmissionRepository.save(toUpdate);
     }
 
     @Override

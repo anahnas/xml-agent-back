@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface CarService {
 
-    Car addCar(Car car);
-
     List<Car> getAll();
 
-    Car getCar(Long id);
+    Car getOne(Long id);
 
-    Car editCar(Car car);
+    Car addOne(Car car);
 
-    boolean removeCar(Long id);
+    Car update(Car car);
+
+    boolean deleteById(Long id);
 
     List<Car> searchCars(Car car);
 

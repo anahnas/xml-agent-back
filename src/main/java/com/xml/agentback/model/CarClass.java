@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.xml.agentback.DTO.CarClassDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,10 @@ public class CarClass {
         this.carClass = carClass;
     }
 
-
+    public CarClass(CarClassDTO carClassDTO) {
+        if(carClassDTO.getId() != null)
+            this.id = carClassDTO.getId();
+        this.carClass = carClassDTO.getCarClass();
+    }
 
 }

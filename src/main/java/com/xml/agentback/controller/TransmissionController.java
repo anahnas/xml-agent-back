@@ -1,6 +1,7 @@
 package com.xml.agentback.controller;
 
 
+import com.xml.agentback.DTO.TransmissionDTO;
 import com.xml.agentback.model.Transmission;
 import com.xml.agentback.service.TransmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class TransmissionController {
     @Autowired
     private TransmissionService transmissionService;
 
-    @GetMapping(value = "/transmission/getAll")
+    @GetMapping
     public ResponseEntity<List<Transmission>> getAll() {
         try {
             List<Transmission> transmission = this.transmissionService.getAll();
@@ -27,29 +28,29 @@ public class TransmissionController {
         }
     }
 
-    @GetMapping(value="/transmission/getOne/{id}")
+    @GetMapping(value="/{id}")
     public ResponseEntity<?> getTransmission(@PathVariable("id") Long id){
-        Optional<Transmission> retVal = transmissionService.getTransmission(id);
+        Optional<Transmission> retVal = transmissionService.getOne(id);
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value="/transmission/add")
+    @PostMapping
     public ResponseEntity<?> addTransmission(@RequestBody Transmission transmission){
-        Transmission retVal = this.transmissionService.addTransmission(transmission);
+        Transmission retVal = this.transmissionService.addOne(transmission);
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping(value = "/transmission/deleteOne/{id}")
-    public ResponseEntity deleteTransmission(@PathVariable("id") Long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteTransmission(@PathVariable Long id) {
 
         try {
-            Optional<Transmission> transmission = this.transmissionService.getTransmission(id);
+            Optional<Transmission> transmission = this.transmissionService.getOne(id);
             if (transmission != null) {
                 this.transmissionService.deleteById(id);
             }
@@ -57,5 +58,14 @@ public class TransmissionController {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateFuelType(@RequestBody TransmissionDTO transmissionDTO){
+        Transmission retVal = this.transmissionService.update(new Transmission(transmissionDTO));
+        if(retVal != null)
+            return new ResponseEntity<>(retVal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

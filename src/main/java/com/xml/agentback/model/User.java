@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.xml.agentback.DTO.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,20 @@ public class User {
 
     private String username;
     private String password;
+
+    public User() {
+    }
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    public User(UserDTO userDTO) {
+        if(userDTO.getId() != null)
+            this.id = userDTO.getId();
+        this.username = userDTO.getUsername();
+        this.password = userDTO.getPassword();
+    }
+
 
 }
 
