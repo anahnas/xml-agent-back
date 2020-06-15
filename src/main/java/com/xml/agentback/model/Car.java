@@ -15,57 +15,40 @@ public class Car {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private Long carModelId;
-    private Long fuelTypeId;
-    private Long transmissionId;
-    private Long carClassId;
+    private CarModel carModel;
+    private FuelType fuelType;
+    private Transmission transmission;
+    private CarClass carClass;
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;
     private Double limitKmsPerDay;
     private Double kmage;
-    private boolean Waiver;
+    private boolean waiver;
     private Integer availableChildSeats;
     @ElementCollection(targetClass=Long.class)
-    private Set<Long> carRatingIds;
-    private Long ownerId;
+    private Set<CarRating> carRatings;
+    private User owner;
     //private List<Image> images;
     @ElementCollection(targetClass=Long.class)
-    private Set<Long> promotionIds;
+    private Set<Promotion> promotions;
 
-    public Car(Long carModelId, Long fuelTypeId, Long transmissionId, Long carClassId, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<Long> carRatingIds, Long agentId, Set<Long> promotionIds) {
-        this.carModelId = carModelId;
-        this.fuelTypeId = fuelTypeId;
-        this.transmissionId = transmissionId;
-        this.carClassId = carClassId;
+    public Car(CarModel carModel, FuelType fuelType, Transmission transmission, CarClass carClass, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings, User owner, Set<Promotion> promotions) {
+        this.carModel = carModel;
+        this.fuelType = fuelType;
+        this.transmission = transmission;
+        this.carClass = carClass;
         this.pricePerDay = pricePerDay;
         this.pricePerKm = pricePerKm;
         this.limitedKms = limitedKms;
         this.limitKmsPerDay = limitKmsPerDay;
         this.kmage = kmage;
-        Waiver = waiver;
+        this.waiver = waiver;
         this.availableChildSeats = availableChildSeats;
-        this.carRatingIds = carRatingIds;
-        this.ownerId = agentId;
-        this.promotionIds = promotionIds;
+        this.carRatings = carRatings;
+        this.owner = owner;
+        this.promotions = promotions;
     }
-    /*
-    public Car(CarDTO carDTO) {
-        this.carModelId = carDTO.getCarModel().getId();
-        this.fuelTypeId = carDTO.getFuelType().getId();
-        this.transmissionId = carDTO.getTransmission().getId();
-        this.carClassId = carDTO.getCarClass().getId();
-        this.pricePerDay = carDTO.getPricePerDay();
-        this.pricePerKm = carDTO.getPricePerKm();
-        this.limitedKms = carDTO.isLimitedKms();
-        this.limitKmsPerDay = carDTO.getLimitKmsPerDay();
-        this.kmage = carDTO.getKmage();
-        Waiver = carDTO.isWaiver();
-        this.availableChildSeats = carDTO.getAvailableChildSeats();
-        this.carRatingIds = new HashSet<>();
-        this.ownerId = carDTO.getAgentId();
-        this.promotionIds = new HashSet<>();
-    }*/
 
     public Car() { }
 }
