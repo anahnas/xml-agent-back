@@ -13,6 +13,8 @@ insert into car_model(name, car_brand_id) values('A6', 3);
 insert into car_model(name, car_brand_id) values('A4', 3);
 insert into car_model(name, car_brand_id) values('Aveo', 2);
 insert into car_model(name, car_brand_id) values('Versa', 1);
+insert into car_model(name, car_brand_id) values('Fabia', 3);
+
 
 insert into transmission(type) values('Manual');
 insert into transmission(type) values('Automatic');
@@ -34,3 +36,15 @@ insert into rent_request(start_date, end_date, client_id, status) values ('2020-
 insert into rent_request(start_date, end_date, client_id, status) values ('2020-02-05 07:58:00.000000', '2020-09-10 17:58:00.000000', '1', 'RESERVED');
 insert into rent_request(start_date, end_date, client_id, status) values ('2020-02-05 07:58:00.000000', '2020-09-10 17:58:00.000000', '1', 'PENDING');
 
+
+insert into location(city) values('Brcko');
+insert into location(city) values('Novi Sad');
+insert into location(city) values('Vlasenica');
+
+
+
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (1, 1, '2020-05-05', '2020-07-07');
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (2, 1, '2020-05-05', '2020-07-07');
+
+insert into car_calendar(car_id) values (1);
+insert into rental(car_calendar_id, start_date, end_date) values (1, '2020-05-05', '2020-06-10');

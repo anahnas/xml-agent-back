@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarClassServiceImpl implements CarClassService {
@@ -22,8 +21,8 @@ public class CarClassServiceImpl implements CarClassService {
     }
 
     @Override
-    public Optional<CarClass> getOne(Long id) {
-        return this.carClassRepository.findById(id);
+    public CarClass getOne(Long id) {
+        return this.carClassRepository.findById(id).orElse(null);
     }
 
     @Override

@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface CarModelRepository extends JpaRepository<CarModel, Long> {
 
-    @Override
-    Optional<CarModel> findById(Long aLong);
 
     @Override
     List<CarModel> findAll();

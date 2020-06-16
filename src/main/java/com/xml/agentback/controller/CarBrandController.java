@@ -36,7 +36,7 @@ public class CarBrandController {
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity getCarBrand(@PathVariable Long id) {
-        Optional<CarBrand> carBrand = carBrandService.getOne(id);
+        Optional<CarBrand> carBrand = Optional.ofNullable(carBrandService.getOne(id));
         if(carBrand != null){
             CarBrandDTO retVal = new CarBrandDTO(carBrand.get());
             return new ResponseEntity<>(retVal, HttpStatus.OK);
@@ -60,7 +60,7 @@ public class CarBrandController {
     public ResponseEntity deleteCarBrand(@PathVariable Long id) {
 
         try {
-            Optional<CarBrand> carBrand = this.carBrandService.getOne(id);
+            Optional<CarBrand> carBrand = Optional.ofNullable(this.carBrandService.getOne(id));
             if (carBrand != null) {
                 this.carBrandService.deleteById(id);
             }

@@ -21,8 +21,8 @@ public class TransmissionServiceImpl implements TransmissionService {
     }
 
     @Override
-    public Optional<Transmission> getOne(Long id) {
-        return this.transmissionRepository.findById(id);
+    public Transmission getOne(Long id) {
+        return this.transmissionRepository.findById(id).orElse(null);
     }
 
     @Override

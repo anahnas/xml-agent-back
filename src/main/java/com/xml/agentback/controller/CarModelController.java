@@ -32,7 +32,7 @@ public class CarModelController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getOneCarModel(@PathVariable("id") Long id){
-        Optional<CarModel> retVal = carModelService.getOne(id);
+        CarModel retVal = carModelService.getOne(id);
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else
@@ -43,7 +43,7 @@ public class CarModelController {
     public ResponseEntity deleteCarModel(@PathVariable("id") Long id) {
 
         try {
-            Optional<CarModel> carModel = this.carModelService.getOne(id);
+            CarModel carModel = this.carModelService.getOne(id);
             if (carModel != null) {
                 this.carModelService.deleteById(id);
             }

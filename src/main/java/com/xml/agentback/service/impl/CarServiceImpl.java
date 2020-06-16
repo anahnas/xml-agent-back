@@ -1,12 +1,14 @@
 package com.xml.agentback.service.impl;
 
+import com.xml.agentback.DTO.CarDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.CarCalendar;
+import com.xml.agentback.model.CarClass;
 import com.xml.agentback.model.Rental;
 import com.xml.agentback.repository.CarCalendarRepository;
 import com.xml.agentback.repository.CarRepository;
 import com.xml.agentback.repository.RentalRepository;
-import com.xml.agentback.service.CarService;
+import com.xml.agentback.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,21 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private CarModelService carModelService;
+
+    @Autowired
+    private CarBrandService carBrandService;
+
+    @Autowired
+    private CarClassService carClassService;
+
+    @Autowired
+    private FuelTypeService fuelTypeService;
+
+    @Autowired
+    private TransmissionService transmissionService;
 
     @Autowired
     private RentalRepository rentalRepository;
@@ -43,7 +60,30 @@ public class CarServiceImpl implements CarService {
         else
             return null;
     }
-    
+
+    @Override
+    public Car newCar(CarDTO carDTO) {
+        Car car = new Car();
+        car.setId(carDTO.getId());
+        car.setCarModel(carModelService.getOne(carDTO.getCarModelDTO().getId()));
+        car.setCarBrand(carBrandService.getOne(carDTO.getCarBrandDTO().getId()));
+        car.setCarClass(carClassService.getOne(carDTO.getCarClassDTO().getId()));
+        car.setPricePerDay(carDTO.getPricePerDay());
+        car.setPricePerKm(carDTO.getPricePerKm());
+        car.setLimitedKms(carDTO.isLimitedKms());
+        car.setLimitKmsPerDay(carDTO.getLimitKmsPerDay());
+        car.setWaiver(carDTO.isWaiver());
+        car.setAvailableChildSeats(carDTO.getAvailableChildSeats());
+        car.setFuelType(fuelTypeService.getOne(carDTO.getFuelTypeDTO().getId()));
+        car.setTransmission(transmissionService.getOne(carDTO.getTransmissionDTO().getId()));
+        car.setKmage(carDTO.getKmage());
+        //jos ownera kad keki ubaci servis
+
+        Car newCar = addOne(car);
+        return newCar;
+
+    }
+
     @Override
     public Car update(Car car) {
         Car toUpdate = this.carRepository.getOne(car.getId());
