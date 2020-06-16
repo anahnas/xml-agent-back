@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface TransmissionRepository extends JpaRepository<Transmission, Long> {
 
-    @Override
-    Optional<Transmission> findById(Long aLong);
 
     @Override
     List<Transmission> findAll();

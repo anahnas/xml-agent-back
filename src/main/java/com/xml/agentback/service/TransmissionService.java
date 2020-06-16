@@ -9,7 +9,7 @@ public interface TransmissionService {
 
     List<Transmission> getAll();
 
-    Optional<Transmission> getOne(Long id);
+    Transmission getOne(Long id);
 
     Transmission addOne(Transmission transmission);
 
