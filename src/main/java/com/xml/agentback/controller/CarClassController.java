@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("carClass")
+@CrossOrigin("http://localhost:4200")
 public class CarClassController {
 
     @Autowired

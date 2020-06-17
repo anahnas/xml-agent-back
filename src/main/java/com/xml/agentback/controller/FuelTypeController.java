@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("fuelType")
+@CrossOrigin("http://localhost:4200")
 public class FuelTypeController {
 
     @Autowired
