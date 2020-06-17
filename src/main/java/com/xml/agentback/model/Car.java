@@ -26,6 +26,9 @@ public class Car {
     private Transmission transmission;
     @ManyToOne
     private CarClass carClass;
+    @ManyToOne
+    private CarBrand carBrand;
+
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;

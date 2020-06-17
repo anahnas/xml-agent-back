@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("transmission")
+@CrossOrigin("http://localhost:4200")
 public class TransmissionController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class TransmissionController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getTransmission(@PathVariable("id") Long id){
-        Optional<Transmission> retVal = transmissionService.getOne(id);
+        Transmission retVal = transmissionService.getOne(id);
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else
@@ -50,7 +52,7 @@ public class TransmissionController {
     public ResponseEntity deleteTransmission(@PathVariable Long id) {
 
         try {
-            Optional<Transmission> transmission = this.transmissionService.getOne(id);
+            Transmission transmission = this.transmissionService.getOne(id);
             if (transmission != null) {
                 this.transmissionService.deleteById(id);
             }

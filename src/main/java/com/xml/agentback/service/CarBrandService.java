@@ -10,7 +10,7 @@ public interface CarBrandService {
 
     List<CarBrand> getAll();
 
-    Optional<CarBrand> getOne(Long id);
+    CarBrand getOne(Long id);
 
     CarBrand addOne(CarBrand carBrand);
 

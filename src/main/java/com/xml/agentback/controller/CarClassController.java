@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("carClass")
+@CrossOrigin("http://localhost:4200")
 public class CarClassController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class CarClassController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getCarClass(@PathVariable Long id){
-        Optional<CarClass> retVal = carClassService.getOne(id);
+        Optional<CarClass> retVal = Optional.ofNullable(carClassService.getOne(id));
         if(retVal != null){
             CarClassDTO retValDTO = new CarClassDTO(retVal.get());
             return new ResponseEntity<>(retValDTO, HttpStatus.OK);
@@ -46,7 +47,7 @@ public class CarClassController {
     public ResponseEntity deleteCarClass(@PathVariable Long id) {
 
         try {
-            Optional<CarClass> carClass = this.carClassService.getOne(id);
+            Optional<CarClass> carClass = Optional.ofNullable(this.carClassService.getOne(id));
             if (carClass != null) {
                 this.carClassService.deleteById(id);
             }

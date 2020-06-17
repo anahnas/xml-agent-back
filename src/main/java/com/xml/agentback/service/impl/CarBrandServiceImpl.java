@@ -21,8 +21,8 @@ public class CarBrandServiceImpl implements CarBrandService {
     }
 
     @Override
-    public Optional<CarBrand> getOne(Long id) {
-        return this.carBrandRepository.findById(id);
+    public CarBrand getOne(Long id) {
+        return this.carBrandRepository.findById(id).orElse(null);
     }
 
     @Override

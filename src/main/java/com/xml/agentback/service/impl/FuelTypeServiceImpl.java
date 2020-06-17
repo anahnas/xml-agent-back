@@ -22,8 +22,8 @@ public class FuelTypeServiceImpl implements FuelTypeService {
     }
 
     @Override
-    public Optional<FuelType> getOne(Long id) {
-        return this.fuelTypeRepository.findById(id);
+    public FuelType getOne(Long id) {
+        return this.fuelTypeRepository.findById(id).orElse(null);
 
     }
 

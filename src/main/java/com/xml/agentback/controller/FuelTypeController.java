@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("fuelType")
+@CrossOrigin("http://localhost:4200")
 public class FuelTypeController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class FuelTypeController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getFuelType(@PathVariable("id") Long id){
-        Optional<FuelType> retVal = fuelTypeService.getOne(id);
+        FuelType retVal = fuelTypeService.getOne(id);
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else
@@ -52,7 +53,7 @@ public class FuelTypeController {
     public ResponseEntity deleteFuelType(@PathVariable("id") Long id) {
 
         try {
-            Optional<FuelType> fuelType = this.fuelTypeService.getOne(id);
+            FuelType fuelType = this.fuelTypeService.getOne(id);
             if (fuelType != null) {
                 this.fuelTypeService.deleteById(id);
             }
