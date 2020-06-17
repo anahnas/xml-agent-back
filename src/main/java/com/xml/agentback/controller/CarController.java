@@ -51,7 +51,7 @@ public class CarController {
         if( r == null )
             return new ResponseEntity<>("Car blocking error!", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>( "Car is not available any more.", HttpStatus.OK);
+        return new ResponseEntity<>( "Car is not available any more for requested period of time.", HttpStatus.OK);
     }
 
     @PostMapping

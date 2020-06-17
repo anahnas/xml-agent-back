@@ -7,9 +7,13 @@ import com.xml.agentback.repository.CarCalendarRepository;
 import com.xml.agentback.repository.CarRepository;
 import com.xml.agentback.repository.RentalRepository;
 import com.xml.agentback.service.CarService;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,9 +82,23 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Rental blockCar(Rental rental) {
 
         try {
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String startDate = formatter.format(rental.getStartDate());
+            String endDate = formatter.format(rental.getEndDate());
+
+            Date startD = formatter.parse(startDate);
+            Date endD = formatter.parse(endDate);
+            System.out.println("Start date: " + startDate +" , End date: "+ endDate);
+
+            String todayString = formatter.format(new Date());
+            System.out.println("New date: " + todayString);
+            Date today = formatter.parse(todayString);
+
 
             CarCalendar carCal = carCalendarRepository.getOne(rental.getCarCalendarId());
 
@@ -88,23 +106,61 @@ public class CarServiceImpl implements CarService {
             ArrayList<Long> deleteListId = new ArrayList();
 
             for (Rental r : rentals) {
-                if ((r.getStartDate().after(rental.getStartDate()) || r.getStartDate().equals(rental.getStartDate())) && (r.getEndDate().before(rental.getEndDate()) || r.getEndDate().equals(rental.getEndDate()))) {
-                    // Moze da se zakazati (unutar termina).
-                    deleteListId.add(r.getId());
-                    continue;
-                } else if ((r.getStartDate().before(rental.getStartDate())) && (r.getEndDate().before(rental.getEndDate()) && r.getEndDate().after(rental.getStartDate()))) {
-                    // Ne valja - ne moze se zakazati (gornja granica je unutar termina), automobil vec izdat.
+                if(r.getStartDate().before(today) && r.getEndDate().after(today) && !(startD.after(r.getEndDate()))){
+                    System.out.println("Automobil je vec izdat nekom i placen!");
                     return null;
-                } else if ((r.getStartDate().before(rental.getEndDate()) && r.getStartDate().after(rental.getStartDate()) && r.getEndDate().after(rental.getEndDate()))) {
-                    // Ne valja - ne moze se zakazati (donja granica je unutar termina).
-                    return null;
+                } else {
+
+                    if ( r.getStartDate().after(startD)  && r.getEndDate().before(endD) ) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  1 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else if ((r.getStartDate().before(startD)) && (r.getEndDate().before(endD) && r.getEndDate().after(startD))) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  2 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else if (  (r.getStartDate().before(endD) && r.getStartDate().after(startD)) && r.getEndDate().after(endD)) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  3 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else if (r.getStartDate().equals(startD) && (r.getEndDate().before(endD) || r.getEndDate().after(endD))) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  4 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else if ( r.getStartDate().before(startD)  && r.getEndDate().after(endD) ) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  5 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else if ((r.getStartDate().before(startD) || r.getStartDate().after(startD)) && r.getEndDate().equals(endD)) {
+                        // Moze da se zakazati (unutar termina).
+                        deleteListId.add(r.getId());
+                        System.out.println("Moze  6 !");
+                        System.out.println("Stari  " + r.getStartDate() + " ,  " + r.getEndDate() + "\n Novi  " + rental.getStartDate() + " ,  " + rental.getEndDate());
+                        continue;
+                    } else {
+                        System.out.println(" Proslo 7 !");
+                        continue;
+                    }
+
                 }
+
             }
 
             // Brisanje liste rentala
             this.rentalRepository.deleteRentalsWithIds(deleteListId);
 
             // Cuvanje novog rentala i njegovo dodavanje
+            System.out.println(rental.getCarCalendarId());
             Rental rent = this.rentalRepository.save(rental);
             carCal.getRentalIds().add(rent.getId());
 
