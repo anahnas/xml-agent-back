@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("transmission")
+@CrossOrigin("http://localhost:4200")
 public class TransmissionController {
 
     @Autowired
