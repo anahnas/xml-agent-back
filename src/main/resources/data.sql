@@ -1,8 +1,8 @@
 insert into user_table(username, password) values ('agent', 'agent');
 
-insert into fuel_type(type) values('Benzin');
-insert into fuel_type(type) values('Dizel');
-insert into fuel_type(type) values('Plin');
+insert into fuel_type(type) values('Gasoline');
+insert into fuel_type(type) values('Diesel');
+insert into fuel_type(type) values('Gas');
 
 insert into car_brand(name) values ('Nissan');
 insert into car_brand(name) values ('Chevrolet');
@@ -36,8 +36,10 @@ insert into car_model(name, car_brand_id, car_class_id) values('A4', 3, 3);
 insert into car_model(name, car_brand_id, car_class_id) values('Aveo', 2, 4);
 insert into car_model(name, car_brand_id, car_class_id) values('Versa', 1, 5);
 
-insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms) values (1, 1, 1, 1, 'false', 'false');
-insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms) values (1, 2, 2, 2, 'false', 'false');
+insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
+values (1, 1, 1, 1, 'false', 'true', 100, 2);
+insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
+values (1, 2, 2, 2, 'true', 'false', 50, 0);
 
 insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 1);
 

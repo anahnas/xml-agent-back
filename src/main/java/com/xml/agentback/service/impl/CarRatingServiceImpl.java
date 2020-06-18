@@ -1,8 +1,12 @@
 package com.xml.agentback.service.impl;
 
+import com.xml.agentback.model.Car;
 import com.xml.agentback.model.CarRating;
 import com.xml.agentback.model.RatingStatus;
+import com.xml.agentback.model.User;
 import com.xml.agentback.repository.CarRatingRepository;
+import com.xml.agentback.repository.CarRepository;
+import com.xml.agentback.repository.UserRepository;
 import com.xml.agentback.service.CarRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,12 @@ import java.util.Optional;
 public class CarRatingServiceImpl implements CarRatingService {
     @Autowired
     private CarRatingRepository carRatingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CarRepository carRepository;
 
     @Override
     public List<CarRating> getAll(Long carId) {
@@ -32,8 +42,22 @@ public class CarRatingServiceImpl implements CarRatingService {
 
     @Override
     public CarRating addOne(CarRating carRating) {
-        carRating.setRatingStatus(RatingStatus.PENDING);
-        return this.carRatingRepository.save(carRating);
+        try{
+            carRating.setRatingStatus(RatingStatus.PENDING);
+            User user = this.userRepository.findByUsername(carRating.getUser().getUsername());
+            carRating.setUser(user);
+            if(user == null)
+                return null;
+            Car car = this.carRepository.getOne(carRating.getCar().getId());
+            carRating.setCar(car);
+
+            carRating = this.carRatingRepository.save(carRating);
+            return this.carRatingRepository.getOne(carRating.getId());
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

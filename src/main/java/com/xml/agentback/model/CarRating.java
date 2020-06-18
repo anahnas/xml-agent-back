@@ -1,5 +1,6 @@
 package com.xml.agentback.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xml.agentback.DTO.CarRatingDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class CarRating {
     @ManyToOne
     private User user;
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Car car;
     private String comment;
     private RatingStatus ratingStatus;
@@ -25,10 +27,10 @@ public class CarRating {
     }
 
     public CarRating(CarRatingDTO carRatingDTO) {
-        System.out.println(carRatingDTO.getId() + " " + carRatingDTO.getUserDTO().getId());
         this.id = carRatingDTO.getId();
         this.rating = carRatingDTO.getRating();
-        this.user = new User(carRatingDTO.getUserDTO().getId());
+        this.user = new User(carRatingDTO.getUserDTO());
+        System.out.println("input id: " + carRatingDTO.getCarDTO().getId());
         this.car = new Car(carRatingDTO.getCarDTO().getId());
         this.comment = carRatingDTO.getComment();
     }

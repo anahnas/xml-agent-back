@@ -1,5 +1,7 @@
 package com.xml.agentback.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xml.agentback.DTO.CarDTO;
 import com.xml.agentback.DTO.CarRatingDTO;
 import com.xml.agentback.DTO.PromotionDTO;
@@ -32,12 +34,14 @@ public class Car {
     private boolean waiver;
     private Integer availableChildSeats;
     @OneToMany
-    private Set<CarRating> carRatings;
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Set<CarRating> carRatings = new HashSet<>();
     @ManyToOne
     private User owner;
     //private List<Image> images;
     @OneToMany
-    private Set<Promotion> promotions;
+    private Set<Promotion> promotions = new HashSet<>();
 
     public Car() { }
 
@@ -62,6 +66,8 @@ public class Car {
     }
 
     public Car(CarDTO carDTO){
+        if(carDTO.getId() != null)
+            this.id = carDTO.getId();
         this.carModel = new CarModel(carDTO.getCarModelDTO());
         this.fuelType = new FuelType(carDTO.getFuelTypeDTO());
         this.transmission = new Transmission(carDTO.getTransmissionDTO());

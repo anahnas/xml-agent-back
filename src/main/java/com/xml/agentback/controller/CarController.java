@@ -58,6 +58,7 @@ public class CarController {
 
     @PostMapping
     public ResponseEntity<?> addCar(@RequestBody CarDTO carDTO){
+        System.out.println(carDTO.getId());
         Car car = new Car(carDTO);
         car = this.carService.addOne(car);
         if(car != null)

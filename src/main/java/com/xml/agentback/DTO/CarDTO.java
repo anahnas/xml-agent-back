@@ -3,6 +3,8 @@ package com.xml.agentback.DTO;
 import com.xml.agentback.model.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,9 +21,9 @@ public class CarDTO {
     private Double kmage;
     private boolean waiver;
     private Integer availableChildSeats;
-    private Set<CarRatingDTO> carRatingDTOs;
+    private Set<CarRatingDTO> carRatingDTOs = new HashSet<>();
     private UserDTO owner;
-    private Set<PromotionDTO> promotionDTOs;
+    private Set<PromotionDTO> promotionDTOs = new HashSet<>();
 
     public CarDTO() {}
 
