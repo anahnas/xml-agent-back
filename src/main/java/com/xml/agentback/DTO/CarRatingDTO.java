@@ -24,10 +24,17 @@ public class CarRatingDTO {
     }
 
     public CarRatingDTO(CarRating carRating) {
+        if(carRating.getId() != null)
+            this.id = carRating.getId();
         this.id = carRating.getId();
         this.rating = carRating.getRating();
         this.userDTO = new UserDTO(carRating.getUser());
         this.carDTO = new CarDTO(carRating.getCar());
         this.comment = carRating.getComment();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

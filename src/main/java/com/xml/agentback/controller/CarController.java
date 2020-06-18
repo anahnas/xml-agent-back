@@ -23,9 +23,10 @@ public class CarController {
     @GetMapping
     public ResponseEntity<?> getAll(){
         try {
+            System.out.println("uslo");
             List<Car> cars = this.carService.getAll();
             List<CarDTO> carDTOs = new ArrayList<>();
-            for(Car car : cars){
+            for(Car car : cars) {
                 carDTOs.add(new CarDTO(car));
             }
             return new ResponseEntity<>(carDTOs, HttpStatus.OK);

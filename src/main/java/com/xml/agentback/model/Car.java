@@ -24,8 +24,6 @@ public class Car {
     private FuelType fuelType;
     @ManyToOne
     private Transmission transmission;
-    @ManyToOne
-    private CarClass carClass;
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;
@@ -43,11 +41,14 @@ public class Car {
 
     public Car() { }
 
-    public Car(CarModel carModel, FuelType fuelType, Transmission transmission, CarClass carClass, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings, User owner, Set<Promotion> promotions) {
+    public Car(Long id) {
+        this.id = id;
+    }
+
+    public Car(CarModel carModel, FuelType fuelType, Transmission transmission, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings, User owner, Set<Promotion> promotions) {
         this.carModel = carModel;
         this.fuelType = fuelType;
         this.transmission = transmission;
-        this.carClass = carClass;
         this.pricePerDay = pricePerDay;
         this.pricePerKm = pricePerKm;
         this.limitedKms = limitedKms;
@@ -64,7 +65,6 @@ public class Car {
         this.carModel = new CarModel(carDTO.getCarModelDTO());
         this.fuelType = new FuelType(carDTO.getFuelTypeDTO());
         this.transmission = new Transmission(carDTO.getTransmissionDTO());
-        this.carClass = new CarClass(carDTO.getCarClassDTO());
         this.pricePerDay = carDTO.getPricePerDay();
         this.pricePerKm = carDTO.getPricePerKm();
         this.limitedKms = carDTO.isLimitedKms();

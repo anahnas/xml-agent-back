@@ -12,7 +12,6 @@ public class CarDTO {
     private CarModelDTO carModelDTO;
     private FuelTypeDTO fuelTypeDTO;
     private TransmissionDTO transmissionDTO;
-    private CarClassDTO carClassDTO;
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;
@@ -31,7 +30,6 @@ public class CarDTO {
         this.carModelDTO = new CarModelDTO(car.getCarModel());
         this.fuelTypeDTO = new FuelTypeDTO(car.getFuelType());
         this.transmissionDTO = new TransmissionDTO(car.getTransmission());
-        this.carClassDTO = new CarClassDTO(car.getCarClass());
         this.pricePerDay = car.getPricePerDay();
         this.pricePerKm = car.getPricePerKm();
         this.limitedKms = car.isLimitedKms();

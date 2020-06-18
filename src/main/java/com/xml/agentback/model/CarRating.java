@@ -25,11 +25,16 @@ public class CarRating {
     }
 
     public CarRating(CarRatingDTO carRatingDTO) {
-        if(carRatingDTO.getId() != null)
-            this.id = carRatingDTO.getId();
+        System.out.println(carRatingDTO.getId() + " " + carRatingDTO.getUserDTO().getId());
+        this.id = carRatingDTO.getId();
         this.rating = carRatingDTO.getRating();
-        this.user = new User(carRatingDTO.getUserDTO());
-        this.car = new Car(carRatingDTO.getCarDTO());
+        this.user = new User(carRatingDTO.getUserDTO().getId());
+        this.car = new Car(carRatingDTO.getCarDTO().getId());
         this.comment = carRatingDTO.getComment();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

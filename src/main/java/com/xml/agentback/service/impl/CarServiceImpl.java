@@ -51,7 +51,6 @@ public class CarServiceImpl implements CarService {
         toUpdate.setCarModel(car.getCarModel());
         car.setFuelType(car.getFuelType());
         car.setTransmission(car.getTransmission());
-        car.setCarClass(car.getCarClass());
         car.setPricePerDay(car.getPricePerDay());
         car.setPricePerKm(car.getPricePerKm());
         car.setLimitedKms(car.isLimitedKms());

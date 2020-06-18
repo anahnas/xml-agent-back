@@ -9,18 +9,15 @@ import lombok.Setter;
 public class UserDTO {
     private Long id;
     private String username;
-    private String password;
 
     public UserDTO() {}
 
-    public UserDTO(String username, String password) {
+    public UserDTO(String username) {
         this.username = username;
-        this.password = password;
     }
 
     public UserDTO(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
-        this.password = user.getPassword();
     }
 }
