@@ -2,7 +2,6 @@ package com.xml.agentback.controller;
 
 import com.xml.agentback.DTO.AdvertisementDTO;
 import com.xml.agentback.model.Advertisement;
-import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.impl.AdvertisementServiceImpl;
 import com.xml.agentback.service.impl.CarServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,6 +45,19 @@ public class AdvertisementController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping
+    public ResponseEntity<?> newAd(@RequestBody AdvertisementDTO advertisementDTO) {
+
+        System.out.println(advertisementDTO);
+        try {
+            Advertisement advertisement = this.advertisementService.newAdvertisement(advertisementDTO);
+            return new ResponseEntity<>(advertisement, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 

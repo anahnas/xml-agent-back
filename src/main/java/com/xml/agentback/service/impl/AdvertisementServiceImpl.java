@@ -66,10 +66,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public Advertisement newAdvertisement(AdvertisementDTO advertisementDTO) {
         Car car = new Car();
-
         Advertisement newAd = new Advertisement();
 
-        if(advertisementDTO.getCarDTO().getId() == null) {
+
+       if(advertisementDTO.getCarDTO().getId() == null) {
+            System.out.println("********ID:" + advertisementDTO.getCarDTO().getId());
 
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
@@ -87,9 +88,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         newAd.setEndDate(advertisementDTO.getEndDate());
         newAd.setStartDate(advertisementDTO.getStartDate());
 
-
         Advertisement ADded = save(newAd);
-
         return ADded;
     }
 
@@ -118,6 +117,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         CarModelDTO carModelDTO = new CarModelDTO();
         CarBrand carBrand = carModel.getCarBrand();
         CarBrandDTO carBrandDTO = new CarBrandDTO();
+        CarClass carClass = carModel.getCarClass();
         CarClassDTO carClassDTO = new CarClassDTO();
         FuelType fuelType = car.getFuelType();
         FuelTypeDTO fuelTypeDTO = new FuelTypeDTO();
@@ -135,15 +135,25 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         newCar.setKmage(car.getKmage());
         newCar.setLimitedKms(car.isLimitedKms());
         newCar.setLimitKmsPerDay(car.getLimitKmsPerDay());
+        newCar.setPricePerDay(car.getPricePerDay());
+        newCar.setPricePerKm(car.getPricePerKm());
+        newCar.setWaiver(car.isWaiver());
 
         carBrandDTO.setId(carBrand.getId());
         carBrandDTO.setName(carBrand.getName());
+        carClassDTO.setId(carClass.getId());
+        carClassDTO.setCarClass(carClass.getCarClass());
+
         carModelDTO.setId(carModel.getId());
         carModelDTO.setName(carModel.getName());
+        carModelDTO.setCarBrandDTO(carBrandDTO);
+        carModelDTO.setCarClassDTO(carClassDTO);
+
         fuelTypeDTO.setId(fuelType.getId());
         fuelTypeDTO.setType(fuelType.getType());
         transmissionDTO.setId(transmission.getId());
         transmissionDTO.setType(transmission.getType());
+
 
 
         newCar.setCarModelDTO(carModelDTO);
