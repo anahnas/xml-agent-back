@@ -39,6 +39,6 @@ insert into car_model(name, car_brand_id, car_class_id) values('Versa', 1, 5);
 insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms) values (1, 1, 1, 1, 'false', 'false');
 insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms) values (1, 2, 2, 2, 'false', 'false');
 
-insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Valja', 10.0, 0, 1, 1);
+insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 1);
 
 insert into car_calendar(car_id) values (1);

@@ -12,8 +12,6 @@ public interface CarService {
 
     Car getOne(Long id);
 
-    Car newCar(CarDTO carDTO);
-
     Car addOne(Car car);
 
     Car update(Car car);

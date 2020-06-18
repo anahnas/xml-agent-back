@@ -71,7 +71,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
         if(advertisementDTO.getCarDTO().getId() == null) {
 
-            car = carService.newCar(advertisementDTO.getCarDTO());
+            car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
             car = carService.getOne(advertisementDTO.getCarDTO().getId());
@@ -118,7 +118,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         CarModelDTO carModelDTO = new CarModelDTO();
         CarBrand carBrand = carModel.getCarBrand();
         CarBrandDTO carBrandDTO = new CarBrandDTO();
-        CarClass carClass = car.getCarClass();
         CarClassDTO carClassDTO = new CarClassDTO();
         FuelType fuelType = car.getFuelType();
         FuelTypeDTO fuelTypeDTO = new FuelTypeDTO();
@@ -141,8 +140,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         carBrandDTO.setName(carBrand.getName());
         carModelDTO.setId(carModel.getId());
         carModelDTO.setName(carModel.getName());
-        carClassDTO.setId(carClass.getId());
-        carClassDTO.setCarClass(carClass.getCarClass());
         fuelTypeDTO.setId(fuelType.getId());
         fuelTypeDTO.setType(fuelType.getType());
         transmissionDTO.setId(transmission.getId());
@@ -150,8 +147,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 
         newCar.setCarModelDTO(carModelDTO);
-        newCar.setCarBrandDTO(carBrandDTO);
-        newCar.setCarClassDTO(carClassDTO);
         newCar.setFuelTypeDTO(fuelTypeDTO);
         newCar.setTransmissionDTO(transmissionDTO);
 

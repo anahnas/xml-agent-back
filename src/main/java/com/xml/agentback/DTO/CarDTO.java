@@ -10,7 +10,6 @@ import java.util.Set;
 public class CarDTO {
     private Long id;
     private CarModelDTO carModelDTO;
-    private CarBrandDTO carBrandDTO;
     private FuelTypeDTO fuelTypeDTO;
     private TransmissionDTO transmissionDTO;
     private Double pricePerDay;
@@ -30,7 +29,6 @@ public class CarDTO {
         this.id = car.getId();
         this.carModelDTO = new CarModelDTO(car.getCarModel());
         this.fuelTypeDTO = new FuelTypeDTO(car.getFuelType());
-        this.carBrandDTO = new CarBrandDTO(car.getCarBrand());
         this.transmissionDTO = new TransmissionDTO(car.getTransmission());
         this.pricePerDay = car.getPricePerDay();
         this.pricePerKm = car.getPricePerKm();
