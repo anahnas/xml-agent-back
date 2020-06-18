@@ -1,10 +1,13 @@
 package com.xml.agentback.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xml.agentback.DTO.CarClassDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,6 +18,9 @@ public class CarClass {
     private Long id;
     @Column
     private String carClass;
+    @JsonIgnore
+    @OneToMany
+    private List<CarModel> carModels = new ArrayList<>();
 
     public CarClass() {
     }

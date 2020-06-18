@@ -24,8 +24,12 @@ public class User {
     @OneToMany
     private Set<CarRating> carRatings;
 
-    public User() {
+    public User() {}
+
+    public User(Long id) {
+        this.id = id;
     }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -34,7 +38,6 @@ public class User {
         if(userDTO.getId() != null)
             this.id = userDTO.getId();
         this.username = userDTO.getUsername();
-        this.password = userDTO.getPassword();
     }
 
 
