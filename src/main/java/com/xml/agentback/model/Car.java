@@ -22,10 +22,15 @@ public class Car {
     private Long id;
     @ManyToOne
     private CarModel carModel;
+    /*@ManyToOne
+    private CarClass carClass;
+    @ManyToOne
+    private CarBrand carBrand;*/
     @ManyToOne
     private FuelType fuelType;
     @ManyToOne
     private Transmission transmission;
+
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;

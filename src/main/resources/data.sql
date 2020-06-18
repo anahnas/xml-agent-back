@@ -36,10 +36,10 @@ insert into car_model(name, car_brand_id, car_class_id) values('A4', 3, 3);
 insert into car_model(name, car_brand_id, car_class_id) values('Aveo', 2, 4);
 insert into car_model(name, car_brand_id, car_class_id) values('Versa', 1, 5);
 
-insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
-values (1, 1, 1, 1, 'false', 'true', 100, 2);
-insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
-values (1, 2, 2, 2, 'true', 'false', 50, 0);
+insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, available_child_seats, price_per_day, price_per_km, limit_kms_per_day, kmage) values (1, 1, 1, 1, 'false', 'false', 2, 2500.45, 123.45, 333.33, 33.33);
+insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, available_child_seats, price_per_day, price_per_km, limit_kms_per_day, kmage) values (1, 2, 2, 2, 'false', 'false', 2, 2500.45, 123.45, 333.33, 33.33);
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (1, 1, '2020-05-05', '2020-07-07');
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (2, 1, '2020-05-05', '2020-07-07');
 
 insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 1);
 
