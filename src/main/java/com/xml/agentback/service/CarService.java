@@ -4,6 +4,7 @@ import com.xml.agentback.DTO.CarDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CarService {
@@ -19,5 +20,9 @@ public interface CarService {
     boolean deleteById(Long id);
 
     Rental blockCar(Rental rental);
+
+    void setImagePath(String path, String originalFilename);
+
+    byte[] getImage(Long id) throws IOException;
 
 }

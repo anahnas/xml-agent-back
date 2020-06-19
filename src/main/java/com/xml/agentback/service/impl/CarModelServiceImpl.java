@@ -43,4 +43,5 @@ public class CarModelServiceImpl implements CarModelService {
     public void deleteById(Long id) {
         this.carModelRepository.deleteById(id);
     }
+
 }

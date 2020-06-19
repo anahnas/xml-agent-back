@@ -36,8 +36,8 @@ insert into car_model(name, car_brand_id, car_class_id) values('A4', 3, 3);
 insert into car_model(name, car_brand_id, car_class_id) values('Aveo', 2, 4);
 insert into car_model(name, car_brand_id, car_class_id) values('Versa', 1, 5);
 
-insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
-values (1, 1, 1, 1, 'false', 'true', 100, 2);
+insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats, image_path)
+values (1, 1, 1, 1, 'false', 'true', 100, 2, 'C:\Users\Jelena\AppData\Local\Temp\tomcat-docbase.4720016084587476068.8086\9-Snapchat-1238630398.jpg');
 insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
 values (1, 2, 2, 2, 'true', 'false', 50, 0);
 

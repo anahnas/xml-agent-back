@@ -7,7 +7,12 @@ import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private ServletContext servletContext;
 
     @Override
     public ArrayList<AdvertisementDTO> getAll() {
@@ -64,13 +71,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Advertisement newAdvertisement(AdvertisementDTO advertisementDTO) {
+    public Car newAdvertisement(AdvertisementDTO advertisementDTO) {
         Car car = new Car();
 
         Advertisement newAd = new Advertisement();
-
+        car = this.carService.addOne(new Car());
+        /*
         if(advertisementDTO.getCarDTO().getId() == null) {
-
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
@@ -90,7 +97,17 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
         Advertisement ADded = save(newAd);
 
-        return ADded;
+        return ADded; ***********************************************otkomentarisi */
+        return car;
+    }
+
+    @Override
+    public void uploadImage(MultipartFile image) throws IOException {
+        String pathStr= servletContext.getRealPath(image.getOriginalFilename());
+        System.out.println(pathStr);
+        byte[] bytes = image.getBytes();
+        Files.write(Paths.get(pathStr), bytes);
+        this.carService.setImagePath(pathStr, image.getOriginalFilename());
     }
 
     @Override

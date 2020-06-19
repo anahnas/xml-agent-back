@@ -7,13 +7,14 @@ import com.xml.agentback.repository.CarCalendarRepository;
 import com.xml.agentback.repository.CarRepository;
 import com.xml.agentback.repository.RentalRepository;
 import com.xml.agentback.service.CarService;
-import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,5 +176,18 @@ public class CarServiceImpl implements CarService {
 
     }
 
+    @Override
+    public void setImagePath(String path, String originalFileName){
+        //getting the car id from uploaded image
+        String carId = originalFileName.split("-")[0];
+        Car car = this.carRepository.findById(Long.valueOf(carId)).get();
+        car.setImagePath(path);
+        carRepository.save(car);
+    }
+
+    public byte[] getImage(Long id) throws IOException {
+        String path = this.carRepository.getOne(id).getImagePath();
+        return Files.readAllBytes(Paths.get(path));
+    }
 
 }
