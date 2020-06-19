@@ -33,4 +33,5 @@ public class Advertisement {
     @Column
     private Date endDate;
 
+
 }
