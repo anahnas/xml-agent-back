@@ -96,7 +96,7 @@ public class CarServiceImpl implements CarService {
             System.out.println("Start date: " + startDate +" , End date: "+ endDate);
 
             String todayString = formatter.format(new Date());
-            System.out.println("New date: " + todayString);
+            System.out.println("Today: " + todayString);
             Date today = formatter.parse(todayString);
 
 
@@ -106,8 +106,11 @@ public class CarServiceImpl implements CarService {
             ArrayList<Long> deleteListId = new ArrayList();
 
             for (Rental r : rentals) {
-                if(r.getStartDate().before(today) && r.getEndDate().after(today) && !(startD.after(r.getEndDate()))){
+                if(((r.getStartDate().before(today) || (r.getStartDate().equals(today))) && r.getEndDate().after(today)) && !(startD.after(r.getEndDate()))) {
                     System.out.println("Automobil je vec izdat nekom i placen!");
+                    return null;
+                } else if (startD.before(today) || endD.before(today)) {
+                    System.out.println("Ne mozete iznajmiti automobil u proslosti!");
                     return null;
                 } else {
 
@@ -176,6 +179,26 @@ public class CarServiceImpl implements CarService {
 
     }
 
+    public ArrayList<Rental> allRentals(Long id) {
+        CarCalendar carCalendar = this.carCalendarRepository.findByCarId(id);
+        ArrayList<Rental> rentals = this.rentalRepository.findByCarCalendarId(carCalendar.getId());
+        if (rentals != null) {
+            return rentals;
+        }
+
+        return null;
+    }
+
+    public Long findCarCalendar(Long id) {
+        CarCalendar carCalendar = this.carCalendarRepository.findByCarId(id);
+        Long carCalendarId = carCalendar.getId();
+        if( carCalendarId != null ) {
+            return carCalendarId;
+        }
+
+        return null;
+    }
+  
     @Override
     public void setImagePath(String path, String originalFileName){
         //getting the car id from uploaded image
@@ -188,6 +211,7 @@ public class CarServiceImpl implements CarService {
     public byte[] getImage(Long id) throws IOException {
         String path = this.carRepository.getOne(id).getImagePath();
         return Files.readAllBytes(Paths.get(path));
+
     }
 
 }

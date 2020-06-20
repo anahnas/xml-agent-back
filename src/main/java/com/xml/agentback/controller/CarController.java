@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.MediaType.TEXT_PLAIN;
+
 @RestController
 @RequestMapping("car")
 @CrossOrigin("http://localhost:4200")
@@ -37,7 +39,7 @@ public class CarController {
         }
     }
 
-    @GetMapping(value="/{id}")
+    @GetMapping( value="/{id}" )
     public ResponseEntity<?> getCar(@PathVariable Long id){
         Car car = carService.getOne(id);
         if(car != null){
@@ -48,13 +50,13 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value="/notAvailable")
+    @PostMapping( value="/notAvailable" )
     public ResponseEntity<?> notAvailable(@RequestBody Rental rental) {
         Rental r = this.carService.blockCar(rental);
         if( r == null )
-            return new ResponseEntity<>("Car blocking error!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>( "Car is not available any more for requested period of time.", HttpStatus.OK);
+        return new ResponseEntity<>(  HttpStatus.OK);
     }
 
     @PostMapping
@@ -77,9 +79,29 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping( value ="/{id}/rentals")
+    public ResponseEntity<?> allRentals(@PathVariable Long id){
+        ArrayList<Rental> rentals= this.carService.allRentals(id);
+        if(rentals != null) {
+           return new ResponseEntity<>(rentals, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping( value = "/{carid}/carCalendar")
+    public ResponseEntity<?> findCarCalendarId(@PathVariable Long carid) {
+        Long carCalendarId = this.carService.findCarCalendar(carid);
+        if(carCalendarId != null) {
+            return new ResponseEntity<>(carCalendarId, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
         return this.carService.getImage(id);
         //return IOUtils.toByteArray(in);
+
     }
 }
