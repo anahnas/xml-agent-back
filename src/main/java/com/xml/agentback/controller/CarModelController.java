@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +23,14 @@ public class CarModelController {
     private CarModelService carModelService;
 
     @GetMapping
-    public ResponseEntity<List<CarModel>> getAll() {
+    public ResponseEntity<?> getAll() {
         try {
-            List<CarModel> fuelTypes = this.carModelService.getAll();
-            return new ResponseEntity<>(fuelTypes, HttpStatus.OK);
+            List<CarModel> carModels = this.carModelService.getAll();
+            List<CarModelDTO> carModelDTOs = new ArrayList<>();
+            for(CarModel carModel : carModels){
+                carModelDTOs.add(new CarModelDTO(carModel));
+            }
+            return new ResponseEntity<>(carModelDTOs, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -55,8 +60,8 @@ public class CarModelController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addCarModel(@RequestBody CarModel carModel){
-        CarModel retVal = this.carModelService.addOne(carModel);
+    public ResponseEntity<?> addCarModel(@RequestBody CarModelDTO carModelDTO){
+        CarModel retVal = this.carModelService.addOne(new CarModel(carModelDTO));
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else

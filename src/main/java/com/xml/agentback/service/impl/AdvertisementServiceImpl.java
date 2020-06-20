@@ -26,22 +26,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private CarService carService;
 
     @Autowired
-    private CarModelRepository carModelRepository;
-
-    @Autowired
-    private CarBrandRepository carBrandRepository;
-
-    @Autowired
-    private CarClassRepository carClassRepository;
-
-    @Autowired
-    private FuelTypeRepository fuelTypeRepository;
-
-    @Autowired
-    private TransmissionRepository transmissionRepository;
-
-    @Autowired
-    private CarRepository carRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private ServletContext servletContext;
@@ -71,13 +56,16 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Car newAdvertisement(AdvertisementDTO advertisementDTO) {
+    public Car newAdvertisement(AdvertisementDTO advertisementDTO, Long userId) {
         Car car = new Car();
-
         Advertisement newAd = new Advertisement();
-        car = this.carService.addOne(new Car());
-        /*
+
+        User user = this.userRepository.getOne(userId);
+        advertisementDTO.setUserDTO(new UserDTO(user));
+        advertisementDTO.getCarDTO().setOwner(new UserDTO(user));
+
         if(advertisementDTO.getCarDTO().getId() == null) {
+            System.out.println("making a new car...");
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
@@ -97,7 +85,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
         Advertisement ADded = save(newAd);
 
-        return ADded; ***********************************************otkomentarisi */
         return car;
     }
 

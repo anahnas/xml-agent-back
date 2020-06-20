@@ -9,22 +9,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("transmission")
-@CrossOrigin("http://localhost:4200")
 public class TransmissionController {
 
     @Autowired
     private TransmissionService transmissionService;
 
     @GetMapping
-    public ResponseEntity<List<Transmission>> getAll() {
+    public ResponseEntity<?> getAll() {
         try {
-            List<Transmission> transmission = this.transmissionService.getAll();
-            return new ResponseEntity<>(transmission, HttpStatus.OK);
+            List<Transmission> transmissionTypes = this.transmissionService.getAll();
+            List<TransmissionDTO> transmissionDTOs = new ArrayList<>();
+            for(Transmission transmission : transmissionTypes){
+                transmissionDTOs.add(new TransmissionDTO(transmission));
+            }
+            return new ResponseEntity<>(transmissionDTOs, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -32,16 +36,19 @@ public class TransmissionController {
 
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getTransmission(@PathVariable("id") Long id){
-        Transmission retVal = transmissionService.getOne(id);
-        if(retVal != null)
-            return new ResponseEntity<>(retVal, HttpStatus.OK);
-        else
+        try {
+            Transmission transmission = transmissionService.getOne(id);
+            TransmissionDTO transmissionDTO = new TransmissionDTO(transmission);
+            return new ResponseEntity<>(transmissionDTO, HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<?> addTransmission(@RequestBody Transmission transmission){
-        Transmission retVal = this.transmissionService.addOne(transmission);
+    public ResponseEntity<?> addTransmission(@RequestBody TransmissionDTO transmissionDTO){
+        Transmission retVal = this.transmissionService.addOne(new Transmission(transmissionDTO));
         if(retVal != null)
             return new ResponseEntity<>(retVal, HttpStatus.OK);
         else

@@ -14,7 +14,7 @@ public interface AdvertisementService {
     ArrayList<AdvertisementDTO> getAll();
     void add(Advertisement ad);
     Advertisement save(Advertisement advertisement);
-    Car newAdvertisement(AdvertisementDTO advertisementDTO);
+    Car newAdvertisement(AdvertisementDTO advertisementDTO, Long userId);
     AdvertisementDTO getOneAd(Long id);
     List<Advertisement> findAdvertisersAds(Long advertiserId);
     void uploadImage(MultipartFile image) throws IOException;

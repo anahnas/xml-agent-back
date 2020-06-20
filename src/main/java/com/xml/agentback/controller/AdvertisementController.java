@@ -3,6 +3,7 @@ package com.xml.agentback.controller;
 import com.xml.agentback.DTO.AdvertisementDTO;
 import com.xml.agentback.model.Advertisement;
 import com.xml.agentback.model.Car;
+import com.xml.agentback.model.User;
 import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.impl.AdvertisementServiceImpl;
 import com.xml.agentback.service.impl.CarServiceImpl;
@@ -58,10 +59,10 @@ public class AdvertisementController {
     }
 
     @PostMapping
-    public ResponseEntity<?> newAd(@RequestBody AdvertisementDTO advertisementDTO) {
+    public ResponseEntity<?> newAd(@RequestHeader ("userId") Long userId , @RequestBody AdvertisementDTO advertisementDTO) {
 
         try {
-            Car car = this.advertisementService.newAdvertisement(advertisementDTO);
+            Car car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
             return new ResponseEntity<>(car, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
