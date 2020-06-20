@@ -1,4 +1,6 @@
 insert into user_table(username, password) values ('agent', 'agent');
+insert into user_table(username, password) values ('Mike', 'user');
+insert into user_table(username, password) values ('Jessica', 'user');
 
 insert into fuel_type(type) values('Gasoline');
 insert into fuel_type(type) values('Diesel');
@@ -44,3 +46,14 @@ values (1, 2, 2, 2, 'true', 'false', 50, 0);
 insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 1);
 
 insert into car_calendar(car_id) values (1);
+
+insert into message(receiver_id, sender_id, content, time_sent) values
+(1, 2, 'Hi, I am interested in your ad about that Ferrari car.', '2020-05-20 02:00:00');
+insert into message(receiver_id, sender_id, content, time_sent) values
+(1, 3, 'Hi, how much would it cost to rent this car?', '2020-05-10 02:00:00');
+insert into message(receiver_id, sender_id, content, time_sent) values
+(1, 2, 'And, I would like to rent this Porsche car.', '2020-05-12 02:00:00');
+insert into message(receiver_id, sender_id, content, time_sent) values
+(2, 1, 'Yes, that would be 7000$ for 7 days.', '2020-05-13 02:00:00');
+insert into message(receiver_id, sender_id, content, time_sent) values
+(3, 1, 'It would cost 200$ per day.', '2020-05-11 02:00:00');

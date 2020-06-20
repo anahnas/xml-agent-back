@@ -26,6 +26,12 @@ public class User {
     @OneToMany
     @JsonIgnore
     private Set<CarRating> carRatings;
+    @OneToMany
+    @JsonIgnore
+    private Set<Message> sentMessages = new HashSet<>();
+    @OneToMany
+    @JsonIgnore
+    private Set<Message> receivedMessages = new HashSet<>();
 
     public User() {
         carRatings = new HashSet<>();
