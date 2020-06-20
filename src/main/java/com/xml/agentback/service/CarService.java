@@ -5,6 +5,7 @@ import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 
 import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public interface CarService {
@@ -24,4 +25,9 @@ public interface CarService {
     ArrayList<Rental> allRentals(Long id);
 
     Long findCarCalendar(Long id);
+  
+    void setImagePath(String path, String originalFilename);
+
+    byte[] getImage(Long id) throws IOException;
+
 }

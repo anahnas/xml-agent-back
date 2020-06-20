@@ -44,9 +44,9 @@ public class Car {
     private Set<CarRating> carRatings = new HashSet<>();
     @ManyToOne
     private User owner;
-    //private List<Image> images;
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
+    private String imagePath;
 
     public Car() { }
 
@@ -54,7 +54,9 @@ public class Car {
         this.id = id;
     }
 
-    public Car(CarModel carModel, FuelType fuelType, Transmission transmission, Double pricePerDay, Double pricePerKm, boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings, User owner, Set<Promotion> promotions) {
+    public Car(CarModel carModel, FuelType fuelType, Transmission transmission, Double pricePerDay, Double pricePerKm,
+               boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings,
+               User owner, Set<Promotion> promotions, String imagePath) {
         this.carModel = carModel;
         this.fuelType = fuelType;
         this.transmission = transmission;
@@ -68,6 +70,7 @@ public class Car {
         this.carRatings = carRatings;
         this.owner = owner;
         this.promotions = promotions;
+        this.imagePath = imagePath;
     }
 
     public Car(CarDTO carDTO){

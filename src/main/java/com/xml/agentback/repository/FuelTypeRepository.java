@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface FuelTypeRepository extends JpaRepository<FuelType, Long> {
 
-
     @Override
     List<FuelType> findAll();
 

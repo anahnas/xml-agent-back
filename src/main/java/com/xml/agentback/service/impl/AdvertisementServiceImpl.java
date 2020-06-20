@@ -7,7 +7,12 @@ import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,23 +26,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     private CarService carService;
 
     @Autowired
-    private CarModelRepository carModelRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private CarBrandRepository carBrandRepository;
-
-    @Autowired
-    private CarClassRepository carClassRepository;
-
-    @Autowired
-    private FuelTypeRepository fuelTypeRepository;
-
-    @Autowired
-    private TransmissionRepository transmissionRepository;
-
-    @Autowired
-    private CarRepository carRepository;
-
+    private ServletContext servletContext;
 
     @Override
     public ArrayList<AdvertisementDTO> getAll() {
@@ -64,14 +56,16 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Advertisement newAdvertisement(AdvertisementDTO advertisementDTO) {
+    public Car newAdvertisement(AdvertisementDTO advertisementDTO, Long userId) {
         Car car = new Car();
         Advertisement newAd = new Advertisement();
 
+        User user = this.userRepository.getOne(userId);
+        advertisementDTO.setUserDTO(new UserDTO(user));
+        advertisementDTO.getCarDTO().setOwner(new UserDTO(user));
 
-       if(advertisementDTO.getCarDTO().getId() == null) {
-            System.out.println("********ID:" + advertisementDTO.getCarDTO().getId());
-
+        if(advertisementDTO.getCarDTO().getId() == null) {
+            System.out.println("making a new car...");
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
@@ -88,8 +82,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         newAd.setEndDate(advertisementDTO.getEndDate());
         newAd.setStartDate(advertisementDTO.getStartDate());
 
+
         Advertisement ADded = save(newAd);
-        return ADded;
+
+        return car;
+    }
+
+    @Override
+    public void uploadImage(MultipartFile image) throws IOException {
+        String pathStr= servletContext.getRealPath(image.getOriginalFilename());
+        System.out.println(pathStr);
+        byte[] bytes = image.getBytes();
+        Files.write(Paths.get(pathStr), bytes);
+        this.carService.setImagePath(pathStr, image.getOriginalFilename());
     }
 
     @Override
@@ -117,7 +122,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         CarModelDTO carModelDTO = new CarModelDTO();
         CarBrand carBrand = carModel.getCarBrand();
         CarBrandDTO carBrandDTO = new CarBrandDTO();
-        CarClass carClass = carModel.getCarClass();
         CarClassDTO carClassDTO = new CarClassDTO();
         FuelType fuelType = car.getFuelType();
         FuelTypeDTO fuelTypeDTO = new FuelTypeDTO();
@@ -135,25 +139,15 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         newCar.setKmage(car.getKmage());
         newCar.setLimitedKms(car.isLimitedKms());
         newCar.setLimitKmsPerDay(car.getLimitKmsPerDay());
-        newCar.setPricePerDay(car.getPricePerDay());
-        newCar.setPricePerKm(car.getPricePerKm());
-        newCar.setWaiver(car.isWaiver());
 
         carBrandDTO.setId(carBrand.getId());
         carBrandDTO.setName(carBrand.getName());
-        carClassDTO.setId(carClass.getId());
-        carClassDTO.setCarClass(carClass.getCarClass());
-
         carModelDTO.setId(carModel.getId());
         carModelDTO.setName(carModel.getName());
-        carModelDTO.setCarBrandDTO(carBrandDTO);
-        carModelDTO.setCarClassDTO(carClassDTO);
-
         fuelTypeDTO.setId(fuelType.getId());
         fuelTypeDTO.setType(fuelType.getType());
         transmissionDTO.setId(transmission.getId());
         transmissionDTO.setType(transmission.getType());
-
 
 
         newCar.setCarModelDTO(carModelDTO);

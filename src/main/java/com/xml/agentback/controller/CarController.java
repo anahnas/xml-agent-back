@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class CarController {
     @GetMapping
     public ResponseEntity<?> getAll(){
         try {
-            System.out.println("uslo");
             List<Car> cars = this.carService.getAll();
             List<CarDTO> carDTOs = new ArrayList<>();
             for(Car car : cars) {
@@ -97,5 +97,11 @@ public class CarController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
+        return this.carService.getImage(id);
+        //return IOUtils.toByteArray(in);
+
     }
 }
