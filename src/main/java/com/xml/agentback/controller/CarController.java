@@ -7,11 +7,14 @@ import com.xml.agentback.model.Rental;
 import com.xml.agentback.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.MediaType.TEXT_PLAIN;
 
 @RestController
 @RequestMapping("car")
@@ -36,7 +39,7 @@ public class CarController {
         }
     }
 
-    @GetMapping(value="/{id}")
+    @GetMapping( value="/{id}" )
     public ResponseEntity<?> getCar(@PathVariable Long id){
         Car car = carService.getOne(id);
         if(car != null){
@@ -47,13 +50,13 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value="/notAvailable")
+    @PostMapping( value="/notAvailable" )
     public ResponseEntity<?> notAvailable(@RequestBody Rental rental) {
         Rental r = this.carService.blockCar(rental);
         if( r == null )
-            return new ResponseEntity<>("Car blocking error!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>( "Car is not available any more for requested period of time.", HttpStatus.OK);
+        return new ResponseEntity<>(  HttpStatus.OK);
     }
 
     @PostMapping
@@ -76,4 +79,23 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping( value ="/{id}/rentals")
+    public ResponseEntity<?> allRentals(@PathVariable Long id){
+        ArrayList<Rental> rentals= this.carService.allRentals(id);
+        if(rentals != null) {
+           return new ResponseEntity<>(rentals, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping( value = "/{carid}/carCalendar")
+    public ResponseEntity<?> findCarCalendarId(@PathVariable Long carid) {
+        Long carCalendarId = this.carService.findCarCalendar(carid);
+        if(carCalendarId != null) {
+            return new ResponseEntity<>(carCalendarId, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

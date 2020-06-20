@@ -4,6 +4,7 @@ import com.xml.agentback.DTO.CarDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CarService {
@@ -20,4 +21,7 @@ public interface CarService {
 
     Rental blockCar(Rental rental);
 
+    ArrayList<Rental> allRentals(Long id);
+
+    Long findCarCalendar(Long id);
 }
