@@ -75,7 +75,7 @@ public class AdvertisementController {
 
             AdvertisementResponse response = adClient.adResponse(advertisementDTO);
             advertisementDTO.setId(response.getAdvertisementId());
-            advertisementDTO.getCarDTO().setId(response.getCarId());
+            advertisementDTO.getCarDTO().setMainId(response.getCarId());
             Long car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
            // advertisementDTO.getCarDTO().setId(car.getId());
 

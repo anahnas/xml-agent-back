@@ -50,8 +50,8 @@ public class Car {
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
     private String imagePath;
-    //@Column(name="main_id")
-   // private Long mainId;
+    // @Column(name="main_id")
+    private Long mainId;
 
     public Car() { }
 
@@ -98,6 +98,7 @@ public class Car {
         for(PromotionDTO promotionDTO : carDTO.getPromotionDTOs()){
             this.promotions.add(new Promotion(promotionDTO));
         }
+        this.mainId = carDTO.getMainId();
     }
 
     @Override

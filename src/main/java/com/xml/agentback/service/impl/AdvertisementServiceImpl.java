@@ -69,9 +69,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
-            car.setId(advertisementDTO.getCarDTO().getId());
-            car.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
-            car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
+            Car car2Save = new Car(advertisementDTO.getCarDTO());
+            car2Save.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
+
+            // car.setId(advertisementDTO.getCarDTO().getId());
+            // car.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
+            car = carService.addOne(car2Save);
 
             System.out.println("Upao nam je ovje mozda");
             //car = carService.getOne(advertisementDTO.getCarDTO().getId());
