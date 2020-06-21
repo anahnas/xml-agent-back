@@ -50,8 +50,8 @@ public class Car {
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
     private String imagePath;
-    @Column(name="mainId")
-    private Long mainId;
+    //@Column(name="main_id")
+   // private Long mainId;
 
     public Car() { }
 
@@ -98,5 +98,27 @@ public class Car {
         for(PromotionDTO promotionDTO : carDTO.getPromotionDTOs()){
             this.promotions.add(new Promotion(promotionDTO));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", carModel=" + carModel +
+                ", fuelType=" + fuelType +
+                ", transmission=" + transmission +
+                ", pricePerDay=" + pricePerDay +
+                ", pricePerKm=" + pricePerKm +
+                ", limitedKms=" + limitedKms +
+                ", limitKmsPerDay=" + limitKmsPerDay +
+                ", kmage=" + kmage +
+                ", waiver=" + waiver +
+                ", availableChildSeats=" + availableChildSeats +
+                ", carRatings=" + carRatings +
+                ", owner=" + owner +
+                ", promotions=" + promotions +
+                ", imagePath='" + imagePath + '\'' +
+               // ", mainId=" + mainId +
+                '}';
     }
 }

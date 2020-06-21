@@ -24,7 +24,7 @@ public class CarDTO {
     private Set<CarRatingDTO> carRatingDTOs = new HashSet<>();
     private UserDTO owner;
     private Set<PromotionDTO> promotionDTOs = new HashSet<>();
-    private Long mainId;
+   // private Long mainId;
 
 
     public CarDTO() {}
@@ -50,4 +50,24 @@ public class CarDTO {
         }
     }
 
+    @Override
+    public String toString() {
+        return "CarDTO{" +
+                "id=" + id +
+                ", carModelDTO=" + carModelDTO +
+                ", fuelTypeDTO=" + fuelTypeDTO +
+                ", transmissionDTO=" + transmissionDTO +
+                ", pricePerDay=" + pricePerDay +
+                ", pricePerKm=" + pricePerKm +
+                ", limitedKms=" + limitedKms +
+                ", limitKmsPerDay=" + limitKmsPerDay +
+                ", kmage=" + kmage +
+                ", waiver=" + waiver +
+                ", availableChildSeats=" + availableChildSeats +
+                ", carRatingDTOs=" + carRatingDTOs +
+                ", owner=" + owner +
+                ", promotionDTOs=" + promotionDTOs +
+                //", mainId=" + mainId +
+                '}';
+    }
 }

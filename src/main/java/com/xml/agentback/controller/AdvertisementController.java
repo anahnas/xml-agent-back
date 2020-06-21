@@ -68,14 +68,20 @@ public class AdvertisementController {
 
         try {
             System.out.println("Da li je usao u pravljenje auta???");
-            AdvertisementResponse response = adClient.adResponse(advertisementDTO);
             /*if(response.getAdvertisementId() == 0){
                 return new ResponseEntity<>("Error on posting on main app",HttpStatus.BAD_REQUEST);
             }*/
 
-            advertisementDTO.setId(response.getAdvertisementId());
-            advertisementDTO.getCarDTO().setMainId(response.getCarId());
+
             Car car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
+            System.out.println("Printamo auto: " + car.toString());
+            advertisementDTO.getCarDTO().setId(car.getId());
+            AdvertisementResponse response = adClient.adResponse(advertisementDTO);
+
+            advertisementDTO.setId(response.getAdvertisementId());
+           // advertisementDTO.getCarDTO().setMainId(response.getCarId());
+            System.out.println("Saljemo za soap: " + advertisementDTO.toString());
+
             return new ResponseEntity<>(car, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

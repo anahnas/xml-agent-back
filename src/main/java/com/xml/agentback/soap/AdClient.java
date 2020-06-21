@@ -25,8 +25,6 @@ public class AdClient extends WebServiceGatewaySupport {
 
         Car car = new Car();
         car.setAvailableChildSeats(advertisementDTO.getCarDTO().getAvailableChildSeats());
-        car.setCarBrandId(advertisementDTO.getCarDTO().getCarModelDTO().getCarBrandDTO().getId());
-        car.setCarClassId(advertisementDTO.getCarDTO().getCarModelDTO().getCarClassDTO().getId());
         car.setCarModelId(advertisementDTO.getCarDTO().getCarModelDTO().getId());
         car.setFuelTypeId(advertisementDTO.getCarDTO().getFuelTypeDTO().getId());
         car.setTransmissionId(advertisementDTO.getCarDTO().getTransmissionDTO().getId());
@@ -38,7 +36,7 @@ public class AdClient extends WebServiceGatewaySupport {
         car.setPricePerKm(advertisementDTO.getCarDTO().getPricePerKm());
         // car.setOwnerId(advertisementDTO.getCarDTO().getOwner().getId());
 
-       /* if(advertisementDTO.getCarDTO().getId() != null){
+        /*if(advertisementDTO.getCarDTO().getId() != null){
             com.xml.agentback.model.Car oldCar = carService.getOne(advertisementDTO.getCarDTO().getId());
             if(oldCar.getMainId() != null) {
                 car.setId(oldCar.getMainId());
@@ -51,6 +49,7 @@ public class AdClient extends WebServiceGatewaySupport {
         }*/
 
         adRequest.setCar(car);
+        System.out.println("***SALJEMO AUTO IZ AD CLIENTA: " + car.getId() + ", " + car.getCarModelId() + " " + car.getKmage());
 
         AdvertisementResponse response = (AdvertisementResponse) getWebServiceTemplate()
                 .marshalSendAndReceive("http://localhost:8081/ws/car-service-schema", adRequest,
