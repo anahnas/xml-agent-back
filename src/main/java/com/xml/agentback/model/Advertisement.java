@@ -22,6 +22,7 @@ public class Advertisement {
 
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false) //zeza table name dont know why, tried everything
+    //@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Car car;
 
     @Column

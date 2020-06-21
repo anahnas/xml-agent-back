@@ -214,4 +214,18 @@ public class CarServiceImpl implements CarService {
 
     }
 
+    @Override
+    public Double getRentKmage(Long carId) {
+        //namjesti kad je isti rentiran vise putaaa
+       /* List<Car> cars = this.carRepository.findAll();
+        Double kmage = 0.0;
+        for(Car car : cars) {
+            kmage += car.getKmage();
+        }
+        return kmage;*/
+        Car car = this.carRepository.getOne(carId);
+        Double kmage = car.getKmage();
+        return kmage;
+    }
+
 }

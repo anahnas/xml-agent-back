@@ -97,11 +97,23 @@ public class CarController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
+
+
 
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
         return this.carService.getImage(id);
+    }
+
+    @GetMapping(value = "/getKmage/{id}")
+    public ResponseEntity<Double> getKmage(@PathVariable("id") Long carId) {
+        try {
+            Double kmage = this.carService.getRentKmage(carId);
+            return new ResponseEntity<>(kmage, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

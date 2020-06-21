@@ -31,6 +31,9 @@ public class Car {
     @ManyToOne
     private Transmission transmission;
 
+    /*@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Advertisement advertisement;*/
+
     private Double pricePerDay;
     private Double pricePerKm;
     private boolean limitedKms;
