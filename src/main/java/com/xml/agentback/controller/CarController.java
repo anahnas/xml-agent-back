@@ -95,13 +95,15 @@ public class CarController {
         if (carCalendarId != null) {
             return new ResponseEntity<>(carCalendarId, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
-        return this.carService.getImage(id);
+        byte[] image = this.carService.getImage(id);
+        if(image != null)
+            return image;
+        else
+            return null;
     }
 }
