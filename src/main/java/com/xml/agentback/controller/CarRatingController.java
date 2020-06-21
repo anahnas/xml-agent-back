@@ -53,4 +53,13 @@ public class CarRatingController {
 
     }
 
+    @GetMapping(value="/rate")
+    public ResponseEntity<?> getRate(@RequestHeader ("carId") Long carId) {
+        try {
+            List<CarRating> carRatings = this.carRatingService.getAll(carId);
+            return new ResponseEntity<>(this.carRatingService.calculate(carRatings), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

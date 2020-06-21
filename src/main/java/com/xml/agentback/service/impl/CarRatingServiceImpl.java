@@ -64,4 +64,13 @@ public class CarRatingServiceImpl implements CarRatingService {
     public void deleteById(Long id) {
         this.carRatingRepository.deleteById(id);
     }
+
+    @Override
+    public Double calculate(List<CarRating> carRatings) {
+        Double retVal = 0.0;
+        for(CarRating carRating : carRatings){
+            retVal += carRating.getRating();
+        }
+        return retVal / carRatings.size();
+    }
 }

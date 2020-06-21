@@ -25,4 +25,6 @@ public interface CarService {
 
     byte[] getImage(Long id) throws IOException;
 
+    Long findCarCalendar(Long id);
+
 }

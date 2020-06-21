@@ -80,6 +80,15 @@ public class CarController {
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@PathVariable Long id) throws IOException {
         return this.carService.getImage(id);
-        //return IOUtils.toByteArray(in);
+    }
+
+    @GetMapping( value = "/{carid}/carCalendar")
+    public ResponseEntity<?> findCarCalendarId(@PathVariable Long carid) {
+        Long carCalendarId = this.carService.findCarCalendar(carid);
+        if (carCalendarId != null) {
+            return new ResponseEntity<>(carCalendarId, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

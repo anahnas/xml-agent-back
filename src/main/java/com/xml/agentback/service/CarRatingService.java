@@ -15,4 +15,7 @@ public interface CarRatingService {
     CarRating addOne(CarRating carRating);
 
     void deleteById(Long id);
+
+    Double calculate(List<CarRating> carRatings);
+
 }

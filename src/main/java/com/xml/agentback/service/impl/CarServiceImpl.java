@@ -190,4 +190,13 @@ public class CarServiceImpl implements CarService {
         return Files.readAllBytes(Paths.get(path));
     }
 
+    public Long findCarCalendar(Long id) {
+        CarCalendar carCalendar = this.carCalendarRepository.findByCarId(id);
+        Long carCalendarId = carCalendar.getId();
+        if( carCalendarId != null ) {
+            return carCalendarId;
+        }
+
+        return null;
+    }
 }
