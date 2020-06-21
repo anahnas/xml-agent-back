@@ -1,5 +1,6 @@
 package com.xml.agentback.controller;
 
+import com.xml.RentACar.wsdl.AdvertisementResponse;
 import com.xml.agentback.DTO.AdvertisementDTO;
 import com.xml.agentback.model.Advertisement;
 import com.xml.agentback.model.Car;
@@ -7,6 +8,7 @@ import com.xml.agentback.model.User;
 import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.impl.AdvertisementServiceImpl;
 import com.xml.agentback.service.impl.CarServiceImpl;
+import com.xml.agentback.soap.AdClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +35,9 @@ public class AdvertisementController {
 
     @Autowired
     private CarServiceImpl carService;
+
+    @Autowired
+    private AdClient adClient;
 
     @GetMapping(value="/all", produces = "application/json")
     public ResponseEntity<List<AdvertisementDTO>> getAll() {
@@ -62,6 +67,14 @@ public class AdvertisementController {
     public ResponseEntity<?> newAd(@RequestHeader ("userId") Long userId , @RequestBody AdvertisementDTO advertisementDTO) {
 
         try {
+            System.out.println("Da li je usao u pravljenje auta???");
+            AdvertisementResponse response = adClient.adResponse(advertisementDTO);
+            /*if(response.getAdvertisementId() == 0){
+                return new ResponseEntity<>("Error on posting on main app",HttpStatus.BAD_REQUEST);
+            }*/
+
+            advertisementDTO.setId(response.getAdvertisementId());
+            advertisementDTO.getCarDTO().setMainId(response.getCarId());
             Car car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
             return new ResponseEntity<>(car, HttpStatus.CREATED);
         } catch (Exception e) {

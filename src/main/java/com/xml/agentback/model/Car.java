@@ -50,6 +50,8 @@ public class Car {
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
     private String imagePath;
+    @Column(name="mainId")
+    private Long mainId;
 
     public Car() { }
 

@@ -24,6 +24,8 @@ public class CarDTO {
     private Set<CarRatingDTO> carRatingDTOs = new HashSet<>();
     private UserDTO owner;
     private Set<PromotionDTO> promotionDTOs = new HashSet<>();
+    private Long mainId;
+
 
     public CarDTO() {}
 
