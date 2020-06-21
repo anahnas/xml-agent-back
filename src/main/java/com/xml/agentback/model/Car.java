@@ -46,7 +46,7 @@ public class Car {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<CarRating> carRatings = new HashSet<>();
     @ManyToOne
-    private User owner;
+    private User owner = new User();
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
     private String imagePath;

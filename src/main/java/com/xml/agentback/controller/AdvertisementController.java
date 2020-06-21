@@ -73,13 +73,14 @@ public class AdvertisementController {
             }*/
 
 
-            Car car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
-            System.out.println("Printamo auto: " + car.toString());
-            advertisementDTO.getCarDTO().setId(car.getId());
             AdvertisementResponse response = adClient.adResponse(advertisementDTO);
-
             advertisementDTO.setId(response.getAdvertisementId());
-           // advertisementDTO.getCarDTO().setMainId(response.getCarId());
+            advertisementDTO.getCarDTO().setId(response.getCarId());
+            Long car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
+           // advertisementDTO.getCarDTO().setId(car.getId());
+
+            System.out.println("Printamo auto: " + car.toString());
+
             System.out.println("Saljemo za soap: " + advertisementDTO.toString());
 
             return new ResponseEntity<>(car, HttpStatus.CREATED);
