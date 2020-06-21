@@ -210,8 +210,11 @@ public class CarServiceImpl implements CarService {
 
     public byte[] getImage(Long id) throws IOException {
         String path = this.carRepository.getOne(id).getImagePath();
-        return Files.readAllBytes(Paths.get(path));
 
+        if(path != null)
+            return Files.readAllBytes(Paths.get(path));
+        else
+            return null;
     }
 
     @Override
