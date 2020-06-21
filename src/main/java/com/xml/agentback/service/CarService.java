@@ -4,6 +4,7 @@ import com.xml.agentback.DTO.CarDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 
+import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public interface CarService {
 
     Rental blockCar(Rental rental);
 
+    ArrayList<Rental> allRentals(Long id);
+
+    Long findCarCalendar(Long id);
+  
     void setImagePath(String path, String originalFilename);
 
     byte[] getImage(Long id) throws IOException;
