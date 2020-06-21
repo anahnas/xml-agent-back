@@ -20,4 +20,12 @@ public class UserDTO {
         this.id = user.getId();
         this.username = user.getUsername();
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

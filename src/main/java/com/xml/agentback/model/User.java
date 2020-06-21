@@ -22,7 +22,8 @@ public class User {
     private String username;
     private String password;
     @OneToMany
-    private Set<Car> cars;
+    @JsonIgnore
+    private Set<Car> cars = new HashSet<>();
     @OneToMany
     @JsonIgnore
     private Set<CarRating> carRatings;
@@ -56,6 +57,7 @@ public class User {
         this.username = userDTO.getUsername();
         carRatings = new HashSet<>();
         cars = new HashSet<>();
+
     }
 
 

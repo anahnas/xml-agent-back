@@ -46,10 +46,12 @@ public class Car {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<CarRating> carRatings = new HashSet<>();
     @ManyToOne
-    private User owner;
+    private User owner = new User();
     @OneToMany
     private Set<Promotion> promotions = new HashSet<>();
     private String imagePath;
+    // @Column(name="main_id")
+    private Long mainId;
 
     public Car() { }
 
@@ -96,5 +98,28 @@ public class Car {
         for(PromotionDTO promotionDTO : carDTO.getPromotionDTOs()){
             this.promotions.add(new Promotion(promotionDTO));
         }
+        this.mainId = carDTO.getMainId();
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", carModel=" + carModel +
+                ", fuelType=" + fuelType +
+                ", transmission=" + transmission +
+                ", pricePerDay=" + pricePerDay +
+                ", pricePerKm=" + pricePerKm +
+                ", limitedKms=" + limitedKms +
+                ", limitKmsPerDay=" + limitKmsPerDay +
+                ", kmage=" + kmage +
+                ", waiver=" + waiver +
+                ", availableChildSeats=" + availableChildSeats +
+                ", carRatings=" + carRatings +
+                ", owner=" + owner +
+                ", promotions=" + promotions +
+                ", imagePath='" + imagePath + '\'' +
+               // ", mainId=" + mainId +
+                '}';
     }
 }

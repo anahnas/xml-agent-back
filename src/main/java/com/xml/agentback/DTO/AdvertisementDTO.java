@@ -18,4 +18,15 @@ public class AdvertisementDTO {
 
     public AdvertisementDTO() {
     }
+
+    @Override
+    public String toString() {
+        return "AdvertisementDTO{" +
+                "id=" + id +
+                ", carDTO=" + carDTO +
+                ", userDTO=" + userDTO +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

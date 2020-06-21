@@ -1,5 +1,6 @@
 package com.xml.agentback.controller;
 
+import com.xml.RentACar.wsdl.AdvertisementResponse;
 import com.xml.agentback.DTO.AdvertisementDTO;
 import com.xml.agentback.model.Advertisement;
 import com.xml.agentback.model.Car;
@@ -7,6 +8,7 @@ import com.xml.agentback.model.User;
 import com.xml.agentback.service.AdvertisementService;
 import com.xml.agentback.service.impl.AdvertisementServiceImpl;
 import com.xml.agentback.service.impl.CarServiceImpl;
+import com.xml.agentback.soap.AdClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +35,9 @@ public class AdvertisementController {
 
     @Autowired
     private CarServiceImpl carService;
+
+    @Autowired
+    private AdClient adClient;
 
     @GetMapping(value="/all", produces = "application/json")
     public ResponseEntity<List<AdvertisementDTO>> getAll() {
@@ -62,7 +67,22 @@ public class AdvertisementController {
     public ResponseEntity<?> newAd(@RequestHeader ("userId") Long userId , @RequestBody AdvertisementDTO advertisementDTO) {
 
         try {
-            Car car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
+            System.out.println("Da li je usao u pravljenje auta???");
+            /*if(response.getAdvertisementId() == 0){
+                return new ResponseEntity<>("Error on posting on main app",HttpStatus.BAD_REQUEST);
+            }*/
+
+
+            AdvertisementResponse response = adClient.adResponse(advertisementDTO);
+            advertisementDTO.setId(response.getAdvertisementId());
+            advertisementDTO.getCarDTO().setMainId(response.getCarId());
+            Long car = this.advertisementService.newAdvertisement(advertisementDTO, userId);
+           // advertisementDTO.getCarDTO().setId(car.getId());
+
+            System.out.println("Printamo auto: " + car.toString());
+
+            System.out.println("Saljemo za soap: " + advertisementDTO.toString());
+
             return new ResponseEntity<>(car, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();

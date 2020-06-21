@@ -56,7 +56,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Car newAdvertisement(AdvertisementDTO advertisementDTO, Long userId) {
+    public Long newAdvertisement(AdvertisementDTO advertisementDTO, Long userId) {
         Car car = new Car();
         Advertisement newAd = new Advertisement();
 
@@ -69,12 +69,20 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             car = carService.addOne(new Car(advertisementDTO.getCarDTO()));
         } else {
 
-            car = carService.getOne(advertisementDTO.getCarDTO().getId());
+            Car car2Save = new Car(advertisementDTO.getCarDTO());
+            car2Save.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
 
-            if(car.getId() == null)
+            // car.setId(advertisementDTO.getCarDTO().getId());
+            // car.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
+            car = carService.addOne(car2Save);
+
+            System.out.println("Upao nam je ovje mozda");
+            //car = carService.getOne(advertisementDTO.getCarDTO().getId());
+
+            /*if(car.getId() == null)
                 car.setId(advertisementDTO.getCarDTO().getId());
 
-            carService.addOne(car);
+            carService.addOne(car);*/
         }
 
         newAd.setId(advertisementDTO.getId());
@@ -85,7 +93,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
         Advertisement ADded = save(newAd);
 
-        return car;
+        return car.getId();
     }
 
     @Override
