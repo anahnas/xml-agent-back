@@ -43,15 +43,16 @@ insert into car_model(name, car_brand_id, car_class_id) values('Aveo', 2, 4);
 insert into car_model(name, car_brand_id, car_class_id) values('Versa', 1, 5);
 
 
-insert into advertisement(car_id, advertiser_id, start_date, end_date) values (1, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
-insert into advertisement(car_id, advertiser_id, start_date, end_date) values (2, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
-
 insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats, image_path)
-values (1, 1, 1, 1, 'false', 'true', 100, 2, 'C:\Users\Jelena\AppData\Local\Temp\tomcat-docbase.4720016084587476068.8086\9-Snapchat-1238630398.jpg');
+values (1, 1, 1, 1, 'false', 'true', 100, 2, 'images/lol2.jpg');
 insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, limited_kms, kmage, available_child_seats)
 values (1, 2, 2, 2, 'true', 'false', 50, 0);
 
-insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 1);
+insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 2);
+insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Dobra voznja...', 9.0, 0, 1, 3);
+
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (1, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
+insert into advertisement(car_id, advertiser_id, start_date, end_date) values (2, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
 
 insert into car_calendar(car_id) values (1);
 insert into car_calendar(car_id) values (2);
