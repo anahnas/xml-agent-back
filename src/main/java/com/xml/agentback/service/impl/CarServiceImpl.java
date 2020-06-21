@@ -214,13 +214,4 @@ public class CarServiceImpl implements CarService {
 
     }
 
-    public Long findCarCalendar(Long id) {
-        CarCalendar carCalendar = this.carCalendarRepository.findByCarId(id);
-        Long carCalendarId = carCalendar.getId();
-        if( carCalendarId != null ) {
-            return carCalendarId;
-        }
-
-        return null;
-    }
 }
