@@ -1,6 +1,7 @@
 package com.xml.agentback.service;
 
 import com.xml.agentback.DTO.CarDTO;
+import com.xml.agentback.DTO.StatisticDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 
@@ -31,5 +32,7 @@ public interface CarService {
     byte[] getImage(Long id) throws IOException;
 
     Double getRentKmage(Long carId);
+    List<StatisticDTO> getKmage(Long id);
+    List<StatisticDTO> getRatings(Long id);
 
 }
