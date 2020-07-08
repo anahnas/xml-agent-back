@@ -2,6 +2,7 @@ package com.xml.agentback.controller;
 
 
 import com.xml.agentback.DTO.CarDTO;
+import com.xml.agentback.DTO.StatisticDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.Rental;
 import com.xml.agentback.service.CarService;
@@ -119,4 +120,31 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(value = "km/{id}", produces = "application/json")
+    public ResponseEntity<?> getMostKm(@PathVariable Long id) {
+        try {
+            List<StatisticDTO> stats = this.carService.getKmage(id);
+
+            System.out.println(stats);
+            return new ResponseEntity(stats, HttpStatus.OK);
+
+        } catch (NullPointerException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(value = "rating/{id}", produces = "application/json")
+    public ResponseEntity<?> getRating(@PathVariable Long id) {
+        try {
+            List<StatisticDTO> stats = this.carService.getRatings(id);
+
+            System.out.println(stats);
+            return new ResponseEntity(stats, HttpStatus.OK);
+
+        } catch (NullPointerException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

@@ -1,9 +1,12 @@
 package com.xml.agentback.service.impl;
 
+import com.xml.agentback.DTO.StatisticDTO;
 import com.xml.agentback.model.Car;
 import com.xml.agentback.model.CarCalendar;
+import com.xml.agentback.model.CarRating;
 import com.xml.agentback.model.Rental;
 import com.xml.agentback.repository.CarCalendarRepository;
+import com.xml.agentback.repository.CarRatingRepository;
 import com.xml.agentback.repository.CarRepository;
 import com.xml.agentback.repository.RentalRepository;
 import com.xml.agentback.service.CarService;
@@ -16,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +31,9 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private RentalRepository rentalRepository;
+
+    @Autowired
+    private CarRatingRepository carRatingRepository;
 
     @Autowired
     private CarCalendarRepository carCalendarRepository;
@@ -229,6 +236,36 @@ public class CarServiceImpl implements CarService {
         Car car = this.carRepository.getOne(carId);
         Double kmage = car.getKmage();
         return kmage;
+    }
+
+    @Override
+    public List<StatisticDTO> getKmage(Long id) {
+        List<StatisticDTO> statistics = new ArrayList<StatisticDTO>();
+        List<Car> cars = this.carRepository.findAllById(id);
+        for (Car c : cars) {
+            StatisticDTO statisticDTO = new StatisticDTO();
+            statisticDTO.setName(c.getCarModel().getName());
+            statisticDTO.setKmage(c.getKmage());
+            statistics.add(statisticDTO);
+        }
+        statistics.sort(Comparator.comparing(StatisticDTO::getKmage).reversed());
+        return statistics;
+    }
+
+    @Override
+    public List<StatisticDTO> getRatings(Long id) {
+            List<StatisticDTO> statistics = new ArrayList<StatisticDTO>();
+            List<CarRating> ratings = this.carRatingRepository.findAllByCarId(id);
+            for (CarRating cr : ratings) {
+                StatisticDTO stat = new StatisticDTO();
+                stat.setName(cr.getCar().getCarModel().getName());
+                stat.setRating(cr.getRating());
+                System.out.println("***RATING: " + cr.getRating());
+                statistics.add(stat);
+            }
+            statistics.sort(Comparator.comparing(StatisticDTO::getRating).reversed());
+            return statistics;
+
     }
 
 }

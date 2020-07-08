@@ -71,6 +71,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
             Car car2Save = new Car(advertisementDTO.getCarDTO());
             car2Save.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
+            car2Save.setId(advertisementDTO.getCarDTO().getId());
 
             // car.setId(advertisementDTO.getCarDTO().getId());
             // car.getOwner().setId(advertisementDTO.getCarDTO().getOwner().getId());
@@ -104,6 +105,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         Files.write(Paths.get(pathStr), bytes);
         this.carService.setImagePath(pathStr, image.getOriginalFilename());
     }
+
+
 
     @Override
     public AdvertisementDTO getOneAd(Long id) {
