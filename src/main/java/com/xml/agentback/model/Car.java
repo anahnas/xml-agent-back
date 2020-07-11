@@ -40,6 +40,7 @@ public class Car {
     private Double limitKmsPerDay;
     private Double kmage;
     private boolean waiver;
+    private Double waiverPricePerDay;
     private Integer availableChildSeats;
     @OneToMany
     @JsonIgnore
@@ -60,7 +61,7 @@ public class Car {
     }
 
     public Car(CarModel carModel, FuelType fuelType, Transmission transmission, Double pricePerDay, Double pricePerKm,
-               boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Integer availableChildSeats, Set<CarRating> carRatings,
+               boolean limitedKms, Double limitKmsPerDay, Double kmage, boolean waiver, Double waiverPricePerDay, Integer availableChildSeats, Set<CarRating> carRatings,
                User owner, Set<Promotion> promotions, String imagePath) {
         this.carModel = carModel;
         this.fuelType = fuelType;
@@ -71,6 +72,7 @@ public class Car {
         this.limitKmsPerDay = limitKmsPerDay;
         this.kmage = kmage;
         this.waiver = waiver;
+        this.waiverPricePerDay = waiverPricePerDay;
         this.availableChildSeats = availableChildSeats;
         this.carRatings = carRatings;
         this.owner = owner;
@@ -90,6 +92,7 @@ public class Car {
         this.limitKmsPerDay = carDTO.getLimitKmsPerDay();
         this.kmage = carDTO.getKmage();
         this.waiver = carDTO.isWaiver();
+        this.waiverPricePerDay = carDTO.getWaiverPricePerDay();
         this.availableChildSeats = carDTO.getAvailableChildSeats();
         for(CarRatingDTO carRatingDTO : carDTO.getCarRatingDTOs()){
             this.carRatings.add(new CarRating(carRatingDTO));

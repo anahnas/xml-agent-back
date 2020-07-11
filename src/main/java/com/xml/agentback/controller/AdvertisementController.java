@@ -93,10 +93,14 @@ public class AdvertisementController {
 
     @PostMapping(value="/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadImage(@RequestParam MultipartFile image) throws IOException {
-        this.advertisementService.uploadImage(image);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-
+        System.out.println("Usao u kontroler");
+        try {
+            this.advertisementService.uploadImage(image);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 

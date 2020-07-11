@@ -32,6 +32,7 @@ public class AdClient extends WebServiceGatewaySupport {
         car.setLimitedKmsPerDay(advertisementDTO.getCarDTO().getLimitKmsPerDay());
         car.setLimitedKms(advertisementDTO.getCarDTO().isLimitedKms());
         car.setWaiver(advertisementDTO.getCarDTO().isWaiver());
+        car.setWaiverPricePerDay(advertisementDTO.getCarDTO().getWaiverPricePerDay());
         car.setPricePerDay(advertisementDTO.getCarDTO().getPricePerDay());
         car.setPricePerKm(advertisementDTO.getCarDTO().getPricePerKm());
         // car.setOwnerId(advertisementDTO.getCarDTO().getOwner().getId());

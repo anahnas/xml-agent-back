@@ -20,6 +20,7 @@ public class CarDTO {
     private Double limitKmsPerDay;
     private Double kmage;
     private boolean waiver;
+    private Double waiverPricePerDay;
     private Integer availableChildSeats;
     private Set<CarRatingDTO> carRatingDTOs = new HashSet<>();
     private UserDTO owner;
@@ -40,6 +41,7 @@ public class CarDTO {
         this.limitKmsPerDay = car.getLimitKmsPerDay();
         this.kmage = car.getKmage();
         this.waiver = car.isWaiver();
+        this.waiverPricePerDay = car.getWaiverPricePerDay();
         this.availableChildSeats = car.getAvailableChildSeats();
         for(CarRating carRating : car.getCarRatings()){
             this.carRatingDTOs.add(new CarRatingDTO(carRating));
