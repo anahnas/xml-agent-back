@@ -45,11 +45,23 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message addOne(MessageDTO messageDTO) {
+        System.out.println("***MESSAGE DTO" + messageDTO.toString());
         Message message = new Message();
         message.setContent(messageDTO.getContent());
         message.setTimeSent(new Date());
         message.setReceiver(this.userRepository.findByUsername(messageDTO.getReceiver()));
         message.setSender(this.userRepository.findByUsername(messageDTO.getSender()));
+
+        if(message.getSender() == null) {
+            message.setSender(this.userRepository.getOne(1L));
+        }
+        /*if(message.getReceiver() == null) {
+            User receiver = new User();
+            receiver.setUsername(messageDTO.getReceiver());
+            message.setReceiver(receiver);
+        }*/
+
+        System.out.println("Receiver and sender id:"  );
         return this.messageRepository.save(message);
     }
 

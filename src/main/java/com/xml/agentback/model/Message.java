@@ -20,6 +20,7 @@ public class Message implements Comparable<Message>{
     private User sender;
     private String content;
     private Date timeSent;
+    private Long mainId;
 
     public Message(){}
 

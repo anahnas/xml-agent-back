@@ -1,6 +1,7 @@
 package com.xml.agentback.DTO;
 
 import com.xml.agentback.model.Message;
+import com.xml.agentback.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class MessageDTO {
     private String sender;
     private String content;
     private String timeSent;
-
+    private Long mainId;
     public MessageDTO() {
     }
 

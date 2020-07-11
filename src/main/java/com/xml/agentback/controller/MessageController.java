@@ -1,11 +1,13 @@
 package com.xml.agentback.controller;
 
+import com.xml.RentACar.wsdl.MessageResponse;
 import com.xml.agentback.DTO.MessageDTO;
 import com.xml.agentback.model.Message;
 import com.xml.agentback.model.RentRequest;
 import com.xml.agentback.service.CarService;
 import com.xml.agentback.service.MessageService;
 import com.xml.agentback.service.RentRequestService;
+import com.xml.agentback.soap.MessageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class MessageController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MessageClient messageClient;
 
     @GetMapping
     public ResponseEntity<?> getAll(@RequestHeader ("receiverId") Long receiverId) {
@@ -66,9 +71,17 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<?> sendMessage(@RequestBody MessageDTO messageDTO) {
         try {
+            System.out.println("***WHAT'S MESSAGE DTO FOR SENDING " + messageDTO.toString() );
+            // this.messageClient.sendMessage(messageDTO);
+            MessageResponse response = messageClient.sendMessage(messageDTO);
+           // System.out.println("*** RESPONSE" + response.toString());
+
+
             this.messageService.addOne(messageDTO);
+            System.out.println("*****USAO U SLANJE PORUKE ZA SOAP *****" + messageDTO.toString());
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println("***** NIJE USAO U SLANJE PORUKE*****");
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
