@@ -32,8 +32,13 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getMessageList(Long receiverId, String username) {
         User sender = this.userRepository.findByUsername(username);
-        List<Message> messages = this.messageRepository.findMessageList(receiverId, sender.getId());
-        //sort by date
+        List<Message> messages = new ArrayList<>();
+        if(sender != null ) {
+            messages = this.messageRepository.findMessageList(receiverId, sender.getId());
+        } else {
+            messages = this.messageRepository.findAllByUsernameBack(username);
+
+        }
         Collections.sort(messages);
         return messages;
     }
@@ -45,11 +50,23 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message addOne(MessageDTO messageDTO) {
+        System.out.println("***MESSAGE DTO" + messageDTO.toString());
         Message message = new Message();
         message.setContent(messageDTO.getContent());
         message.setTimeSent(new Date());
         message.setReceiver(this.userRepository.findByUsername(messageDTO.getReceiver()));
         message.setSender(this.userRepository.findByUsername(messageDTO.getSender()));
+
+        if(message.getSender() == null) {
+            message.setSender(this.userRepository.getOne(1L));
+        }
+        /*if(message.getReceiver() == null) {
+            User receiver = new User();
+            receiver.setUsername(messageDTO.getReceiver());
+            message.setReceiver(receiver);
+        }*/
+
+        System.out.println("Receiver and sender id:"  );
         return this.messageRepository.save(message);
     }
 
@@ -57,5 +74,10 @@ public class MessageServiceImpl implements MessageService {
     public void deleteById(Long id) {
 
         this.messageRepository.deleteById(id);
+    }
+
+    @Override
+    public void save(Message message) {
+        this.messageRepository.save(message);
     }
 }

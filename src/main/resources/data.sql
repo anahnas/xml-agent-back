@@ -2,6 +2,8 @@ insert into user_table(username, password) values ('agent', 'agent');
 insert into user_table(username, password) values ('Mike', 'user');
 insert into user_table(username, password) values ('Jessica', 'user');
 
+
+
 insert into fuel_type(type) values('Gasoline');
 insert into fuel_type(type) values('Diesel');
 insert into fuel_type(type) values('Gas');
@@ -49,7 +51,7 @@ insert into car(owner_id, car_model_id, fuel_type_id, transmission_id, waiver, l
 values (1, 2, 2, 2, 'true', 'false', 50, 0);
 
 insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Odlicno!', 10.0, 0, 1, 2);
-insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Dobra voznja...', 9.0, 0, 1, 3);
+insert into car_rating(comment, rating, rating_status, car_id, user_id) values('Dobra voznja...', 9.0, 0, 2, 3);
 
 insert into advertisement(car_id, advertiser_id, start_date, end_date) values (1, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
 insert into advertisement(car_id, advertiser_id, start_date, end_date) values (2, 1, '2020-05-05 02:00:00', '2020-07-07 02:00:00');
