@@ -2,6 +2,8 @@ insert into user_table(username, password) values ('agent', 'agent');
 insert into user_table(username, password) values ('Mike', 'user');
 insert into user_table(username, password) values ('Jessica', 'user');
 
+
+
 insert into fuel_type(type) values('Gasoline');
 insert into fuel_type(type) values('Diesel');
 insert into fuel_type(type) values('Gas');

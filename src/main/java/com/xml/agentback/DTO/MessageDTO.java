@@ -26,7 +26,12 @@ public class MessageDTO {
         if(message.getId() != null)
             this.id = message.getId();
         this.receiver = message.getReceiver().getUsername();
-        this.sender = message.getSender().getUsername();
+        if(message.getSender() == null) {
+            this.sender = message.getUsernameBack();
+        } else {
+            this.sender = message.getSender().getUsername();
+
+        }
         this.content = message.getContent();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         String strDate = dateFormat.format(message.getTimeSent());

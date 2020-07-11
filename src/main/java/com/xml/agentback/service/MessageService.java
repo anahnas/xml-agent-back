@@ -15,4 +15,6 @@ public interface MessageService {
     Message addOne(MessageDTO messageDTO);
 
     void deleteById(Long id);
+
+    void save(Message message);
 }
