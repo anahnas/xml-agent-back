@@ -26,6 +26,7 @@ public class CarDTO {
     private UserDTO owner;
     private Set<PromotionDTO> promotionDTOs = new HashSet<>();
     private Long mainId;
+    private String imagePath;
 
 
     public CarDTO() {}
